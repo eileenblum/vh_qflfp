@@ -1,0 +1,540 @@
+\documentclass[,doc,floatsintext]{apa6}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdftitle={Vowel Harmony in QFLFP},
+            pdfauthor={Eileen Blum},
+            pdfkeywords={keywords},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\newcommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+  \title{Vowel Harmony in QFLFP}
+  \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+  \author{Eileen Blum\textsuperscript{1}}
+  \preauthor{\centering\large\emph}
+  \postauthor{\par}
+  \date{}
+  \predate{}\postdate{}
+
+\shorttitle{PhonSem Sp2019-VHQFLFP}
+\authornote{
+
+Correspondence concerning this article should be addressed to Eileen Blum, 18 Seminary Place. E-mail: eileen.blum@rutgers.edu}
+\affiliation{
+\vspace{0.5cm}
+\textsuperscript{1} Rutgers University}
+\abstract{This is the handout for my second presentation in Adam Jardine's Phonology Seminar Spring 2019. 
+}
+\keywords{keywords\newline\indent Word count: X}
+\usepackage{csquotes}
+\usepackage{upgreek}
+\captionsetup{font=singlespacing,justification=justified}
+
+\usepackage{longtable}
+\usepackage{lscape}
+\usepackage{multirow}
+\usepackage{tabularx}
+\usepackage[flushleft]{threeparttable}
+\usepackage{threeparttablex}
+
+\newenvironment{lltable}{\begin{landscape}\begin{center}\begin{ThreePartTable}}{\end{ThreePartTable}\end{center}\end{landscape}}
+
+\makeatletter
+\newcommand\LastLTentrywidth{1em}
+\newlength\longtablewidth
+\setlength{\longtablewidth}{1in}
+\newcommand{\getlongtablewidth}{\begingroup \ifcsname LT@\roman{LT@tables}\endcsname \global\longtablewidth=0pt \renewcommand{\LT@entry}[2]{\global\advance\longtablewidth by ##2\relax\gdef\LastLTentrywidth{##2}}\@nameuse{LT@\roman{LT@tables}} \fi \endgroup}
+
+
+\usepackage{tipa}
+\usepackage{gb4e}
+\noautomath
+\usepackage{tikz}
+\usetikzlibrary{matrix}
+\usetikzlibrary{shapes}
+\tikzset{marked/.style={draw=none, fill=none}}
+\usepackage{mathptmx}
+\usepackage{moresize}
+\setlength{\parindent}{2em}
+\def\defeq{\mathrel{\buildrel \mbox{\footnotesize def} \over =}}
+
+\usepackage{amsthm}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}{Lemma}[section]
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{corollary}{Corollary}[section]
+\newtheorem{proposition}{Proposition}[section]
+\theoremstyle{definition}
+\newtheorem{example}{Example}[section]
+\theoremstyle{definition}
+\newtheorem{exercise}{Exercise}[section]
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\newtheorem*{solution}{Solution}
+\begin{document}
+\maketitle
+
+\section{Introduction}\label{introduction}
+
+Last time we talked about vowel harmony transformations with neutral
+vowels. We saw how QFLFP can be used to describe spreading and blocking
+over strings. Dine, then introduced two-tiered autosegmental
+representations of tone and showed that we can also use QFLFP to
+describe autosegmental spreading (Chandlee \& Jardine, 2019; Goldsmith,
+1976). Today, I will combine these two approaches to show that QFLFP can
+be used to describe spreading and blocking of vowel features over
+multi-tiered autosegmental representations.
+
+\subsection{Multi-tiered ARs of vowel
+harmony}\label{multi-tiered-ars-of-vowel-harmony}
+
+Unlike for tone, we will represent vowel harmony patterns using
+autosegmental representations (ARs) with more than two tiers. Ignoring
+consonants, we can assume there is one tier, which consists of vowels
+and each feature (i.e.~ATR, back, low, round, etc.) is represented on a
+separate tier with both its + and - minus values. Assuming a bottlebrush
+feature configuraton, each feature tier is connected to the vowel tier
+via association, as shown in (\ref{bottlebrush}).
+
+\begin{exe}
+\ex \label{bottlebrush} Bottlebrush configuration with a multi-tiered AR \\
+  \begin{tikzpicture}[baseline=(current bounding box.north)]
+  \matrix [matrix of nodes, row sep=2.5ex, column sep=2.25ex, nodes={text height=1em, text depth=0.5em}] 
+  {
+               & |(b)| $\pm$back \\
+|(a)| $\pm$ATR & \\
+|(1)| V        & \\
+|(l)| $\pm$low & \\
+               & |(r)| $\pm$round \\
+  };
+  \draw foreach \x in {a, b} {(\x.south) -- (1.north)};
+  \draw foreach \x in {l, r} {(1.south) -- (\x.north)};
+  \end{tikzpicture}
+\end{exe}
+
+\noindent A single vowel is thus necessarily associated to multiple
+feature tiers. Assuming both the Obligatory Contour Principle (OCP) and
+the No Crossing Constraint (NCC), multi-tiered ARs of vowel harmony can
+utilize multiple association, but only in one direction; a single vowel
+cannot be associated to both the + and - value of a feature. The
+possible surface configurations of association that include both + and -
+values on a tier are shown in (\ref{ar.vh}).
+
+\begin{exe}
+\ex \label{ar.vh} Possible vowel harmony ARs \\
+  \begin{tikzpicture}[baseline=(current bounding box.north)]
+  \matrix [matrix of nodes, row sep=2.5ex, column sep=2.25ex, nodes={text height=1em, text depth=0.5em}] 
+  {
+(a) & |(2)| +F  & |(3)| -F & (b) & |(4)| +F  &           & (c) & |(5)| +F    & |(6)| -F  & (d) & |(7)| +F\\
+    & |(b)| V   & |(c)| V  &     & |(d)| V   & |(e)| V   &     & |(f)| V       & |(g)| V   &     & |(h)| V & |(i)| V\\
+    & |(g2)| +G &          &     & |(g3)| +G & |(g4)| -G &     & |(g5)| +G    & |(g6)| -G &     & |(g7)| +G\\
+  };
+   \draw (2.south) -- (b.north);
+   \draw (3.south) -- (c.north);
+   \draw foreach \x in {b, c} {(\x.south) -- (g2.north)};
+   \draw foreach \x in {d, e} {(4.south) -- (\x.north)};
+   \draw (d.south) -- (g3.north);
+   \draw (e.south) -- (g4.north);
+   \draw (5.south) -- (f.north);
+   \draw (f.south) -- (g5.north);
+   \draw (6.south) -- (g.north);
+   \draw (g.south) -- (g6.north);
+   \draw foreach \x in {h, i} {(7.south) -- (\x.north)};
+   \draw foreach \x in {h, i} {(\x.south) -- (g7.north)};
+  \end{tikzpicture}
+\end{exe}
+
+\noindent In (\ref{ar.vh}a) two vowels are associated to a single +G
+feature and in (\ref{ar.vh}b) two vowels are associated to a single +F
+feature. However, if we assume both the OCP and the NCC then on any
+feature tier if both the + and - values of a feature are present they
+must be associated to different vowels, as in (\ref{ar.vh}a-c). Lastly,
+(\ref{ar.vh}d) shows full spreading where both vowels are associated to
+a single feature on each tier.
+
+\section{Association Relation}\label{association-relation}
+
+\subsection{Unbounded spreading}\label{unbounded-spreading}
+
+Following Dine's logical characterization of ARs, we could define each
+element on each tier and a binary association relation that holds
+between them. For example, a vowel harmony pattern like the one in Akan
+can be described as an ATR feature spreading from the left until it is
+blocked by a +low vowel (Clements, 1976). A word with no +low vowels
+will show unbounded feature spreading, as in (\ref{akan.spread}).
+
+\begin{exe}
+\ex \label{akan.spread} Unbounded Feature Spreading \\
+  \begin{tikzpicture}[baseline=(current bounding box.north)]
+  \matrix [matrix of nodes, row sep=2.5ex, column sep=2.25ex, nodes={text height=1em, text depth=0.5em}] 
+  {
+|(a)| +ATR &         &         &           & |(c)| +ATR\\
+|(1)| V    & |(2)| V & |(3)| V & $\mapsto$ & |(4)| V    & |(5)| V & |(6)| V\\
+|(b)| -low &             &     &           & |(d)| -low\\
+  };
+  \draw (a.south) -- (1.north);
+  \draw (1.south) -- (b.north);
+  \draw foreach \x in {4, 5, 6} {(c.south) -- (\x.north)};
+  \draw foreach \x in {4, 5, 6} {(\x.south) -- (d.north)};
+  \end{tikzpicture}
+\end{exe}
+
+\noindent Unbounded feature spreading is straightforwardly captured with
+QFLFP because all surface features are found underlyingly and the
+associations can be said to spread iteratively. We thus define a unary
+relation for vowels and each feature (separate ones for + and - values).
+
+\begin{exe}
+\ex\label{qflfp.spread} $\langle$D; p, s, $\mathcal{A}$, P$_V$, P$_{+ATR}$, P$_{-ATR}$, P$_{+low}$, P$_{-low}\rangle$ 
+\end{exe}
+
+\noindent P\('_{V}(x) \defeq\) P\(_{V}(x)\)\newline
+P\('_{+ATR}(x) \defeq\) P\(_{+ATR}(x)\) \hspace{0.5in}
+P\('_{-ATR}(x) \defeq\) P\(_{-ATR}(x)\)\newline
+P\('_{+low}(x) \defeq\) P\(_{+low}(x)\) \hspace{0.5in}
+P\('_{-low}(x) \defeq\) P\(_{-low}(x)\)\newline
+
+\noindent We can also define two association relations, between the
+vowel tier and each feature tier.
+
+\noindent \(\mathcal{A}_{ATR}'(x, y) \defeq [lfp\mathcal{A}(x', y') \vee R(x', p(y'))](x, y)\)\newline
+\(\mathcal{A}_{low}'(x, y) \defeq [lfp\mathcal{A}(x', y') \vee R(x', p(y'))](x, y)\)
+
+\subsection{Blocking}\label{blocking}
+
+However, Akan ATR harmony is blocked by a +low vowel so we need to add a
+restriction to these association definitions. If we stipulate that +low
+vowels are underlyingly specified for ATR, we will see something like
+(\ref{akan.block}).
+
+\begin{exe}
+  \ex \label{akan.block} Blocking\\
+  \begin{tikzpicture}[baseline=(current bounding box.north)]
+  \matrix [matrix of nodes, row sep=2.5ex, column sep=2.25ex, nodes={text height=1em, text depth=0.5em}] 
+  {
+|(a1)| +ATR &         & |(b1)| -ATR &         &           & |(c1)| +ATR &         & |(d1)| -ATR\\
+|(1)| V  & |(2)| V & |(3)| V      & |(4)| V & $\mapsto$ & |(5)| V     & |(6)| V & |(7)| V & |(8)| V\\
+|(a2)| -low &         & |(b2)| +low &         &           & |(c2)| -low &         & |(d2)| +low\\
+  };
+  \draw (a1.south) -- (1.north);
+  \draw (1.south) -- (a2.north);
+  \draw (b1.south) -- (3.north);
+  \draw (3.south) -- (b2.north);
+  \draw foreach \x in {5, 6} {(c1.south) -- (\x.north)};
+  \draw foreach \x in {5, 6} {(\x.south) -- (c2.north)};
+  \draw foreach \x in {7, 8} {(d1.south) -- (\x.north)};
+  \draw foreach \x in {7, 8} {(\x.south) -- (d2.north)};
+  \end{tikzpicture}
+\end{exe}
+
+\noindent Again, each feature and all the vowels only appear in the
+output structure if they are present in the input structure. The idea
+that we want to capture is that a feature spreads from one vowel onto
+successive \emph{unassociated} vowels and stops when it reaches another
+vowel that is \emph{underlyingly associated}. Is it possible to
+incorporate blocking into the definitions of the binary association
+relation?
+
+\begin{exe}
+\ex\label{qflfp.spread} $\langle$D; p, s, $\mathcal{A}$, $P_V$, $P_{+ATR}$, $P_{-ATR}$, $P_{+low}$, $P_{-low}\rangle$ 
+\end{exe}
+
+\noindent \(P'_{V}(x) \defeq P_{V}(x)\)\newline
+\(P'_{+ATR}(x) \defeq P_{+ATR}(x)\) \hspace{0.5in}
+\(P'_{-ATR}(x) \defeq P_{-ATR}(x)\)\newline
+\(P'_{+low}(x) \defeq P_{+low}(x)\) \hspace{0.5in}
+\(P'_{-low}(x) \defeq P_{-low}(x)\)\newline
+\(\mathcal{A}_{ATR}'(x, y) \defeq [lfp\mathcal{A}(x', y')\vee (R(x', p(y')) \wedge\)
+\vspace{1in}
+
+\noindent \(\mathcal{A}_{low}'(x, y) \defeq [lfp\mathcal{A}(x', y')\vee (R(x', p(y')) \wedge\)
+
+\newpage
+
+\section{Association as a function}\label{association-as-a-function}
+
+\subsection{Unbounded spreading}\label{unbounded-spreading-1}
+
+An alternative approach would be to describe the associations between
+the vowel tier and each feature tier as a function. Because multiple
+association is possible with multi-tiered ARs, association can only be a
+function if it is unidirectional. If you look back at the possible
+structures in (\ref{ar.vh}), in which direction could a function that
+holds between tiers operate?
+
+A separate association function (let's call it \(\alpha\)) must be
+defined for each feature tier, but since they are all the same type of
+function (\(\alpha(x)\approx y\)) they will work in the same way. An
+example transformation for Akan is given in (\ref{akan.func}) using the
+unidirectional association function represented with arrows from vowels
+to a feature. In order to evaluate \(\alpha(x)\approx y\), the variable
+\(x\) would be used for an element on the vowel tier and \(y\) for an
+element on a feature tier.
+
+\begin{exe}
+\ex \label{akan.func} Association as a unidirectional function \\
+  \begin{tikzpicture}[baseline=(current bounding box.north)]
+  \matrix [matrix of nodes, row sep=2.5ex, column sep=2.25ex, nodes={text height=1em, text depth=0.5em}] 
+  {
+|(a)| +ATR$_1$ &             &             &           & |(c)| +ATR$_6$\\
+|(1)| V$_2$    & |(2)| V$_3$ & |(3)| V$_4$ & $\mapsto$ & |(4)| V$_7$ & |(5)| V$_8$ & |(6)| V$_9$ \\
+|(b)| -low$_5$ &             &             &           & |(d)| -low$_{10}$\\
+  };
+  \draw[black,<-] (a.south) -- (1.north);
+  \draw[black,->] (1.south) -- (b.north);
+  \draw[black,<-] foreach \x in {4, 5, 6} {(c.south) -- (\x.north)};
+  \draw[black,->] foreach \x in {4, 5, 6} {(\x.south) -- (d.north)};
+  \end{tikzpicture}
+\end{exe}
+
+\noindent We can use the same definitions for unary P relations as
+before. Can we also define the output associations for unbounded
+spreading in (\ref{akan.func}) in terms of the input associations?
+
+\begin{exe}
+\ex\label{function.spread} $\langle$D; p, s, $\alpha$, $P_V$, $P_{+ATR}$, $P_{-ATR}$, $P_{+low}$, $P_{-low}\rangle$ 
+\end{exe}
+
+\noindent \(P'_{V}(x) \defeq P_{V}(x)\)\newline
+\(P'_{+ATR}(x) \defeq P_{+ATR}(x)\) \hspace{0.5in}
+\(P'_{-ATR}(x) \defeq P_{-ATR}(x)\)\newline
+\(P'_{+low}(x) \defeq P_{+low}(x)\) \hspace{0.5in}
+\(P'_{-low}(x) \defeq P_{-low}(x)\)\newline
+\(\alpha_{ATR}'(x)\approx y \defeq\) \vspace{1in}
+
+\noindent \(\alpha_{low}'(x)\approx y \defeq\)
+
+\newpage
+
+\noindent Let's evaluate these functions over the input structure
+according to our definitions and see if the results match the output
+structure in (\ref{akan.func}). Recall that in order for \(\alpha\) to
+be a function there must be only one \(y\) for each \(x\). Multiple
+\(x\)s can map to the same \(y\), but not vice versa.
+
+\noindent \(\alpha_{ATR}(2)\approx\) \hspace{0.75in}
+\(\alpha_{ATR}(3)\approx\) \hspace{0.75in} \(\alpha_{ATR}(4)\approx\)
+\vspace{0.5in}
+
+\noindent \(\alpha_{low}(2)\approx\) \hspace{0.75in}
+\(\alpha_{low}(3)\approx\) \hspace{0.75in} \(\alpha_{low}(4)\approx\)
+\vspace{0.5in}
+
+\subsection{Total Function}\label{total-function}
+
+Remember the string relations that we are now considering as functions:
+predecessor and successor. In the current system, these are both total
+functions over strings because each element in the input string has a
+predecessor and a successor, including the first and last one
+respectively. In other words, the first element in a string is its own
+predecessor and the last element in a string is its own successor. Could
+we extend this idea to ARs? For ARs, how could we make association a
+total function? Let's look at (\ref{akan.func}) again repeated here in
+(\ref{ex.func}).
+
+\begin{exe}
+\ex \label{ex.func} Association as a unidirectional function \\
+  \begin{tikzpicture}[baseline=(current bounding box.north)]
+  \matrix [matrix of nodes, row sep=2.5ex, column sep=2.25ex, nodes={text height=1em, text depth=0.5em}] 
+  {
+|(a)| +ATR$_1$ &             &             &           & |(c)| +ATR$_6$\\
+|(1)| V$_2$    & |(2)| V$_3$ & |(3)| V$_4$ & $\mapsto$ & |(4)| V$_7$ & |(5)| V$_8$ & |(6)| V$_9$ \\
+|(b)| -low$_5$ &             &             &           & |(d)| -low$_{10}$\\
+  };
+  \draw[black,<-] (a.south) -- (1.north);
+  \draw[black,->] (1.south) -- (b.north);
+  \draw[black,<-] foreach \x in {4, 5, 6} {(c.south) -- (\x.north)};
+  \draw[black,->] foreach \x in {4, 5, 6} {(\x.south) -- (d.north)};
+  \end{tikzpicture}
+\end{exe}
+
+\noindent First, all elements on the vowel tier must be associated to
+something. Notice the input AR is underspecified because the vowels 2
+and 3 are not associated to any features. We can solve this in the same
+way that we did for strings. We can say that unspecified vowels in the
+input are associated to themselves and then our definitions for output
+association will overwrite the input associations to spread the feature
+to all vowels. This will make the unbounded spreading ARs look like
+(\ref{total.func})
+
+\newpage
+
+\begin{exe}
+\ex \label{total.func} Association as a total function \\
+  \begin{tikzpicture}[baseline=(current bounding box.north)]
+  \matrix [matrix of nodes, row sep=2.5ex, column sep=2.25ex, nodes={text height=1em, text depth=0.5em}] 
+  {
+|(a)| +ATR$_1$ &             &             &           & |(c)| +ATR$_6$\\
+|(1)| V$_2$    & |(2)| V$_3$ & |(3)| V$_4$ & $\mapsto$ & |(4)| V$_7$ & |(5)| V$_8$ & |(6)| V$_9$ \\
+|(b)| -low$_5$ &             &             &           & |(d)| -low$_{10}$\\
+  };
+  \draw[black,<-] (a.south) -- (1.north);
+  \draw[black,->] (1.south) -- (b.north);
+  \draw[black,<-] foreach \x in {4, 5, 6} {(c.south) -- (\x.north)};
+  \draw[black,->] foreach \x in {4, 5, 6} {(\x.south) -- (d.north)};
+  \path (2) edge [loop above] (2);
+  \path (3) edge [loop above] (3);
+  \path (2) edge [loop below] (2);
+  \path (3) edge [loop below] (3);
+  \end{tikzpicture}
+\end{exe}
+
+\noindent Including looping associations in the input will now allow us
+to refer to unspecified vowels, which we could not do with the binary
+association relation.
+
+\subsection{Blocking}\label{blocking-1}
+
+Lastly, we cannot forget that Akan has blocking. The major advantage of
+defining association as a function rather than a binary relation is that
+we can use QFLFP to describe feature spreading with blocking. We can now
+write the complete AR transformation for blocking by adding to
+(\ref{akan.block}), as in (\ref{totalfunc.block}).
+
+\begin{exe}
+  \ex \label{totalfunc.block} Blocking\\
+  \begin{tikzpicture}[baseline=(current bounding box.north)]
+  \matrix [matrix of nodes, row sep=2.5ex, column sep=2.25ex, nodes={text height=1em, text depth=0.5em}] 
+  {
+|(a1)| +ATR &         & |(b1)| -ATR &         &           & |(c1)| +ATR &         & |(d1)| -ATR\\
+|(1)| V     & |(2)| V & |(3)| V     & |(4)| V & $\mapsto$ & |(5)| V     & |(6)| V & |(7)| V & |(8)| V\\
+|(a2)| -low &         & |(b2)| +low &         &           & |(c2)| -low &         & |(d2)| +low\\
+  };
+  \draw (a1.south) -- (1.north);
+  \draw (1.south) -- (a2.north);
+  \draw (b1.south) -- (3.north);
+  \draw (3.south) -- (b2.north);
+  \draw foreach \x in {5, 6} {(c1.south) -- (\x.north)};
+  \draw foreach \x in {5, 6} {(\x.south) -- (c2.north)};
+  \draw foreach \x in {7, 8} {(d1.south) -- (\x.north)};
+  \draw foreach \x in {7, 8} {(\x.south) -- (d2.north)};
+  \path (2) edge [loop above] (2);
+  \path (4) edge [loop above] (4);
+  \path (2) edge [loop below] (2);
+  \path (4) edge [loop below] (4);
+  \end{tikzpicture}
+\end{exe}
+
+\noindent The question remains whether or not we can define the
+association function using QFLFP to incorporate blocking. Using QFLFP we
+can now describe a transformation that spreads a feature association
+from one vowel only to an adjacent unspecified vowel. First, we can
+define an unspecified element in the same way that we defined the first
+and last elements in a string. How would you define the unspec(\(x\))
+predicate?
+
+unspec\(_{ATR}(x) \defeq\) \vspace{0.5in}
+
+unspec\(_{low}(x) \defeq\) \vspace{0.5in}
+
+\noindent Next, we can define the unary relations for each element in
+the same way we have been so far.
+
+\begin{exe}
+\ex\label{function.block} $\langle$D; p, s, $\alpha$, $P_V$, $P_{+ATR}$, $P_{-ATR}$, $P_{+low}$, $P_{-low}\rangle$ 
+\end{exe}
+
+\noindent \(P'_{V}(x) \defeq P_{V}(x)\)\newline
+\(P'_{+ATR}(x) \defeq P_{+ATR}(x)\) \hspace{0.5in}
+\(P'_{-ATR}(x) \defeq P_{-ATR}(x)\)\newline
+\(P'_{+low}(x) \defeq P_{+low}(x)\) \hspace{0.5in}
+\(P'_{-low}(x) \defeq P_{-low}(x)\)\newline
+
+\noindent Lastly using the predicate unspec(\(x\)) defined above, how
+can we define the two association functions needed to describe the Akan
+vowel harmony pattern with blocking?
+
+\noindent \(\alpha_{ATR}'(x)\approx y \defeq\) \vspace{1in}
+
+\noindent \(\alpha_{low}'(x)\approx y \defeq\) \vspace{2in}
+
+\section{References}\label{references}
+
+\begingroup
+\setlength{\parindent}{-0.5in} \setlength{\leftskip}{0.5in}
+
+\hypertarget{refs}{}
+\hypertarget{ref-chandleejardineaisl}{}
+Chandlee, J., \& Jardine, A. (2019). Autosegmental input strictly local
+functions.
+
+\hypertarget{ref-Clements1976}{}
+Clements, G. (1976). Vowel harmony in non-linear generative phonology:
+An autosegmental model. Bloomington, Indiana University Linguistics
+Club.
+
+\hypertarget{ref-Goldsmith1976}{}
+Goldsmith, J. (1976). \emph{Autosegmental phonology} (PhD thesis).
+Massachusetts Institute of Technology.
+
+\endgroup
+
+
+\end{document}
