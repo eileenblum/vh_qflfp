@@ -117,7 +117,7 @@ library("papaja")
 |(b)| -low &             &     &           & |(d)| -low\\
   };
   \draw (a.south) -- (1.north);
-  \draw (1.south) -- (b.north);
+  \draw foreach \x in {1, 2, 3} {(\x.south) -- (b.north)};
   \draw foreach \x in {4, 5, 6} {(c.south) -- (\x.north)};
   \draw foreach \x in {4, 5, 6} {(\x.south) -- (d.north)};
   \end{tikzpicture}
@@ -125,17 +125,21 @@ library("papaja")
 
 \noindent Unbounded feature spreading is straightforwardly captured with QFLFP because all surface features are found underlyingly and the associations can be said to spread iteratively. We thus define a unary relation for vowels and each feature (separate ones for + and - values).
 
+\newpage
 \begin{exe}
 \ex\label{qflfp.spread} $\langle$D; p, s, $\mathcal{A}$, P$_V$, P$_{+ATR}$, P$_{-ATR}$, P$_{+low}$, P$_{-low}\rangle$ 
 \end{exe}
-\noindent P$'_{V}(x) \defeq$ P$_{V}(x)$\newline
-P$'_{+ATR}(x) \defeq$ P$_{+ATR}(x)$ \hspace{0.5in} P$'_{-ATR}(x) \defeq$ P$_{-ATR}(x)$\newline
-P$'_{+low}(x) \defeq$ P$_{+low}(x)$ \hspace{0.5in} P$'_{-low}(x) \defeq$ P$_{-low}(x)$\newline
+P$'_{V}(x) \defeq$ \vspace{0.5in}
+
+P$'_{+ATR}(x) \defeq$ \hspace{2.25in} P$'_{-ATR}(x) \defeq$\vspace{0.5in}
+
+P$'_{+low}(x) \defeq$ \hspace{2.25in} P$'_{-low}(x) \defeq$\vspace{0.5in}
 
 \noindent We can also define two association relations, between the vowel tier and each feature tier.
 
-\noindent $\mathcal{A}_{ATR}'(x, y) \defeq [lfp\mathcal{A}(x', y') \vee R(x', p(y'))](x, y)$\newline
-$\mathcal{A}_{low}'(x, y) \defeq [lfp\mathcal{A}(x', y') \vee R(x', p(y'))](x, y)$
+$\mathcal{A}_{ATR}'(x, y) \defeq$\vspace{0.5in}
+
+$\mathcal{A}_{low}'(x, y) \defeq$\vspace{0.5in}
 
 ## Blocking
   However, Akan ATR harmony is blocked by a +low vowel so we need to add a restriction to these association definitions. If we stipulate that +low vowels are underlyingly specified for ATR, we will see something like (\ref{akan.block}).
@@ -150,9 +154,9 @@ $\mathcal{A}_{low}'(x, y) \defeq [lfp\mathcal{A}(x', y') \vee R(x', p(y'))](x, y
 |(a2)| -low &         & |(b2)| +low &         &           & |(c2)| -low &         & |(d2)| +low\\
   };
   \draw (a1.south) -- (1.north);
-  \draw (1.south) -- (a2.north);
+  \draw foreach \x in {1, 2} {(\x.south) -- (a2.north)};
   \draw (b1.south) -- (3.north);
-  \draw (3.south) -- (b2.north);
+  \draw foreach \x in {3, 4} {(\x.south) -- (b2.north)};
   \draw foreach \x in {5, 6} {(c1.south) -- (\x.north)};
   \draw foreach \x in {5, 6} {(\x.south) -- (c2.north)};
   \draw foreach \x in {7, 8} {(d1.south) -- (\x.north)};
@@ -160,23 +164,25 @@ $\mathcal{A}_{low}'(x, y) \defeq [lfp\mathcal{A}(x', y') \vee R(x', p(y'))](x, y
   \end{tikzpicture}
 \end{exe}
 
+\newpage
 \noindent Again, each feature and all the vowels only appear in the output structure if they are present in the input structure. The idea that we want to capture is that a feature spreads from one vowel onto successive *unassociated* vowels and stops when it reaches another vowel that is *underlyingly associated*. Is it possible to incorporate blocking into the definitions of the binary association relation?
 
 \begin{exe}
-\ex\label{qflfp.spread} $\langle$D; p, s, $\mathcal{A}$, $P_V$, $P_{+ATR}$, $P_{-ATR}$, $P_{+low}$, $P_{-low}\rangle$ 
+\ex\label{qflfp.spread} $\langle$D; p, s, $\mathcal{A}$, P$_V$, P$_{+ATR}$, P$_{-ATR}$, P$_{+low}$, P$_{-low}\rangle$ 
 \end{exe}
-\noindent $P'_{V}(x) \defeq P_{V}(x)$\newline
-$P'_{+ATR}(x) \defeq P_{+ATR}(x)$ \hspace{0.5in} $P'_{-ATR}(x) \defeq P_{-ATR}(x)$\newline
-$P'_{+low}(x) \defeq P_{+low}(x)$ \hspace{0.5in} $P'_{-low}(x) \defeq P_{-low}(x)$\newline
-$\mathcal{A}_{ATR}'(x, y) \defeq [lfp\mathcal{A}(x', y')\vee (R(x', p(y')) \wedge$
-\vspace{1in}
+P$'_{V}(x) \defeq$\vspace{0.5in}
 
-\noindent $\mathcal{A}_{low}'(x, y) \defeq [lfp\mathcal{A}(x', y')\vee (R(x', p(y')) \wedge$
+P$'_{+ATR}(x) \defeq$ \hspace{2.25in} P$'_{-ATR}(x) \defeq$\vspace{0.5in}
 
-\newpage
+P$'_{+low}(x) \defeq$ \hspace{2.25in} P$'_{-low}(x) \defeq$\vspace{0.5in}
+
+$\mathcal{A}_{ATR}'(x, y) \defeq$
+\vspace{0.5in}
+
+$\mathcal{A}_{low}'(x, y) \defeq$\vspace{0.5in}
+
 # Association as a function
 
-## Unbounded spreading
   An alternative approach would be to describe the associations between the vowel tier and each feature tier as a function. Because multiple association is possible with multi-tiered ARs, association can only be a function if it is unidirectional. If you look back at the possible structures in (\ref{ar.vh}), in which direction could a function that holds between tiers operate?
 
   A separate association function (let's call it $\alpha$) must be defined for each feature tier, but since they are all the same type of function ($\alpha(x)\approx y$) they will work in the same way. An example transformation for Akan is given in (\ref{akan.func}) using the unidirectional association function represented with arrows from vowels to a feature. In order to evaluate $\alpha(x)\approx y$, the variable $x$ would be used for an element on the vowel tier and $y$ for an element on a feature tier.
@@ -186,113 +192,69 @@ $\mathcal{A}_{ATR}'(x, y) \defeq [lfp\mathcal{A}(x', y')\vee (R(x', p(y')) \wedg
   \begin{tikzpicture}[baseline=(current bounding box.north)]
   \matrix [matrix of nodes, row sep=2.5ex, column sep=2.25ex, nodes={text height=1em, text depth=0.5em}] 
   {
-|(a)| +ATR$_1$ &             &             &           & |(c)| +ATR$_6$\\
-|(1)| V$_2$    & |(2)| V$_3$ & |(3)| V$_4$ & $\mapsto$ & |(4)| V$_7$ & |(5)| V$_8$ & |(6)| V$_9$ \\
-|(b)| -low$_5$ &             &             &           & |(d)| -low$_{10}$\\
+|(a)| +ATR$_1$ &             &             &           & |(c)| +ATR$_{1^1}$\\
+|(1)| V$_2$    & |(2)| V$_3$ & |(3)| V$_4$ & $\mapsto$ & |(4)| V$_{2^1}$ & |(5)| V$_{3^1}$ & |(6)| V$_{4^1}$ \\
+|(b)| -low$_5$ &             &             &           & |(d)| -low$_{5^1}$\\
   };
   \draw[black,<-] (a.south) -- (1.north);
-  \draw[black,->] (1.south) -- (b.north);
+  \draw[black,->] foreach \x in {1, 2, 3} {(\x.south) -- (b.north)};
   \draw[black,<-] foreach \x in {4, 5, 6} {(c.south) -- (\x.north)};
   \draw[black,->] foreach \x in {4, 5, 6} {(\x.south) -- (d.north)};
   \end{tikzpicture}
 \end{exe}
-
-\noindent We can use the same definitions for unary P relations as before. Can we also define the output associations for unbounded spreading in (\ref{akan.func}) in terms of the input associations?
-
-\begin{exe}
-\ex\label{function.spread} $\langle$D; p, s, $\alpha$, $P_V$, $P_{+ATR}$, $P_{-ATR}$, $P_{+low}$, $P_{-low}\rangle$ 
-\end{exe}
-\noindent $P'_{V}(x) \defeq P_{V}(x)$\newline
-$P'_{+ATR}(x) \defeq P_{+ATR}(x)$ \hspace{0.5in} $P'_{-ATR}(x) \defeq P_{-ATR}(x)$\newline
-$P'_{+low}(x) \defeq P_{+low}(x)$ \hspace{0.5in} $P'_{-low}(x) \defeq P_{-low}(x)$\newline
-$\alpha_{ATR}'(x)\approx y \defeq$
-\vspace{1in}
-
-\noindent $\alpha_{low}'(x)\approx y \defeq$
-
-\newpage
-\noindent Let's evaluate these functions over the input structure according to our definitions and see if the results match the output structure in (\ref{akan.func}). Recall that in order for $\alpha$ to be a function there must be only one $y$ for each $x$. Multiple $x$s can map to the same $y$, but not vice versa. 
-
-\noindent $\alpha_{ATR}(2)\approx$ \hspace{0.75in} $\alpha_{ATR}(3)\approx$ \hspace{0.75in} $\alpha_{ATR}(4)\approx$
-\vspace{0.5in}
-
-\noindent $\alpha_{low}(2)\approx$ \hspace{0.75in} $\alpha_{low}(3)\approx$ \hspace{0.75in} $\alpha_{low}(4)\approx$
-\vspace{0.5in}
 
 ## Total Function
 
-  Remember the string relations that we are now considering as functions: predecessor and successor. In the current system, these are both total functions over strings because each element in the input string has a predecessor and a successor, including the first and last one respectively. In other words, the first element in a string is its own predecessor and the last element in a string is its own successor. Could we extend this idea to ARs? For ARs, how could we make association a total function? Let's look at (\ref{akan.func}) again repeated here in (\ref{ex.func}).
+  Remember the string relations that we are now considering as functions: predecessor and successor. In the current system, these are both total functions over strings because each element in the input string has a predecessor and a successor, including the first and last one respectively. In other words, the first element in a string is its own predecessor and the last element in a string is its own successor. Could we extend this idea to ARs? For ARs, how could we make association a total function? Let's take a look at (\ref{akan.func}) again. First, all elements on the vowel tier must be associated to something. Notice the input AR is underspecified because the vowels 3 and 4 are not associated to any ATR feature. We can solve this in the same way that we did for strings. We can say that unspecified vowels in the input are associated to themselves and then our definitions for output association will overwrite the input associations to spread the feature to all vowels. This will make the unbounded spreading ARs look like (\ref{total.func})
 
-\begin{exe}
-\ex \label{ex.func} Association as a unidirectional function \\
-  \begin{tikzpicture}[baseline=(current bounding box.north)]
-  \matrix [matrix of nodes, row sep=2.5ex, column sep=2.25ex, nodes={text height=1em, text depth=0.5em}] 
-  {
-|(a)| +ATR$_1$ &             &             &           & |(c)| +ATR$_6$\\
-|(1)| V$_2$    & |(2)| V$_3$ & |(3)| V$_4$ & $\mapsto$ & |(4)| V$_7$ & |(5)| V$_8$ & |(6)| V$_9$ \\
-|(b)| -low$_5$ &             &             &           & |(d)| -low$_{10}$\\
-  };
-  \draw[black,<-] (a.south) -- (1.north);
-  \draw[black,->] (1.south) -- (b.north);
-  \draw[black,<-] foreach \x in {4, 5, 6} {(c.south) -- (\x.north)};
-  \draw[black,->] foreach \x in {4, 5, 6} {(\x.south) -- (d.north)};
-  \end{tikzpicture}
-\end{exe}
-
-\noindent First, all elements on the vowel tier must be associated to something. Notice the input AR is underspecified because the vowels 2 and 3 are not associated to any features. We can solve this in the same way that we did for strings. We can say that unspecified vowels in the input are associated to themselves and then our definitions for output association will overwrite the input associations to spread the feature to all vowels. This will make the unbounded spreading ARs look like (\ref{total.func})
-
-\newpage
 \begin{exe}
 \ex \label{total.func} Association as a total function \\
   \begin{tikzpicture}[baseline=(current bounding box.north)]
   \matrix [matrix of nodes, row sep=2.5ex, column sep=2.25ex, nodes={text height=1em, text depth=0.5em}] 
   {
-|(a)| +ATR$_1$ &             &             &           & |(c)| +ATR$_6$\\
-|(1)| V$_2$    & |(2)| V$_3$ & |(3)| V$_4$ & $\mapsto$ & |(4)| V$_7$ & |(5)| V$_8$ & |(6)| V$_9$ \\
-|(b)| -low$_5$ &             &             &           & |(d)| -low$_{10}$\\
+|(a)| +ATR$_1$ &             &             &           & |(c)| +ATR$_{1^1}$\\
+|(1)| V$_2$    & |(2)| V$_3$ & |(3)| V$_4$ & $\mapsto$ & |(4)| V$_{2^1}$ & |(5)| V$_{3^1}$ & |(6)| V$_{4^1}$ \\
+|(b)| -low$_5$ &             &             &           & |(d)| -low$_{5^1}$\\
   };
   \draw[black,<-] (a.south) -- (1.north);
-  \draw[black,->] (1.south) -- (b.north);
+  \draw[black,->] foreach \x in {1, 2, 3} {(\x.south) -- (b.north)};
   \draw[black,<-] foreach \x in {4, 5, 6} {(c.south) -- (\x.north)};
   \draw[black,->] foreach \x in {4, 5, 6} {(\x.south) -- (d.north)};
   \path (2) edge [loop above] (2);
   \path (3) edge [loop above] (3);
-  \path (2) edge [loop below] (2);
-  \path (3) edge [loop below] (3);
   \end{tikzpicture}
 \end{exe}
 
 \noindent Including looping associations in the input will now allow us to refer to unspecified vowels, which we could not do with the binary association relation.
 
-## Blocking
+\newpage
+## ATR spread with blocking
 
-  Lastly, we cannot forget that Akan has blocking. The major advantage of defining association as a function rather than a binary relation is that we can use QFLFP to describe feature spreading with blocking. We can now write the complete AR transformation for blocking by adding to (\ref{akan.block}), as in (\ref{totalfunc.block}).
+  The major advantage of defining association as a function rather than a binary relation is that we can use QFLFP to describe ATR spreading with blocking. We can now write the complete AR transformation for blocking by adding to (\ref{akan.block}), as in (\ref{totalfunc.block}).
 
 \begin{exe}
   \ex \label{totalfunc.block} Blocking\\
   \begin{tikzpicture}[baseline=(current bounding box.north)]
   \matrix [matrix of nodes, row sep=2.5ex, column sep=2.25ex, nodes={text height=1em, text depth=0.5em}] 
   {
-|(a1)| +ATR &         & |(b1)| -ATR &         &           & |(c1)| +ATR &         & |(d1)| -ATR\\
-|(1)| V     & |(2)| V & |(3)| V     & |(4)| V & $\mapsto$ & |(5)| V     & |(6)| V & |(7)| V & |(8)| V\\
-|(a2)| -low &         & |(b2)| +low &         &           & |(c2)| -low &         & |(d2)| +low\\
+|(a1)| +ATR$_1$ &         & |(b1)| -ATR$_2$ &         &           & |(c1)| +ATR$_{1^1}$ &         & |(d1)| -ATR$_{2^1}$\\
+|(1)| V$_3$ & |(2)| V$_4$ & |(3)| V$_5$ & |(4)| V$_6$ & $\mapsto$ & |(5)| V$_{3^1}$ & |(6)| V$_{4^1}$ & |(7)| V$_{5^1}$ & |(8)| V$_{6^1}$\\
+|(a2)| -low$_7$ &         & |(b2)| +low$_8$ &         &           & |(c2)| -low$_{7^1}$ &         & |(d2)| +low$_{8^1}$\\
   };
   \draw (a1.south) -- (1.north);
-  \draw (1.south) -- (a2.north);
+  \draw foreach \x in {1, 2} {(\x.south) -- (a2.north)};
   \draw (b1.south) -- (3.north);
-  \draw (3.south) -- (b2.north);
+  \draw foreach \x in {3, 4} {(\x.south) -- (b2.north)};
   \draw foreach \x in {5, 6} {(c1.south) -- (\x.north)};
   \draw foreach \x in {5, 6} {(\x.south) -- (c2.north)};
   \draw foreach \x in {7, 8} {(d1.south) -- (\x.north)};
   \draw foreach \x in {7, 8} {(\x.south) -- (d2.north)};
   \path (2) edge [loop above] (2);
   \path (4) edge [loop above] (4);
-  \path (2) edge [loop below] (2);
-  \path (4) edge [loop below] (4);
   \end{tikzpicture}
 \end{exe}
 
-\noindent The question remains whether or not we can define the association function using QFLFP to incorporate blocking. Using QFLFP we can now describe a transformation that spreads a feature association from one vowel only to an adjacent unspecified vowel. First, we can define an unspecified element in the same way that we defined the first and last elements in a string. How would you define the unspec($x$) predicate? 
+\noindent Using QFLFP we can now describe a transformation that spreads a feature association from one vowel only to an adjacent *unspecified* vowel. First, we can define an unspecified element in the same way that we defined the first and last elements in a string. How would you define the unspec($x$) predicate? 
 
 unspec$_{ATR}(x) \defeq$
 \vspace{0.5in}
@@ -303,19 +265,26 @@ unspec$_{low}(x) \defeq$
 \noindent Next, we can define the unary relations for each element in the same way we have been so far.
 
 \begin{exe}
-\ex\label{function.block} $\langle$D; p, s, $\alpha$, $P_V$, $P_{+ATR}$, $P_{-ATR}$, $P_{+low}$, $P_{-low}\rangle$ 
+\ex\label{function.block} $\langle$D; p, s, $\alpha$, P$_V$, P$_{+ATR}$, P$_{-ATR}$, P$_{+low}$, P$_{-low}\rangle$ 
 \end{exe}
-\noindent $P'_{V}(x) \defeq P_{V}(x)$\newline
-$P'_{+ATR}(x) \defeq P_{+ATR}(x)$ \hspace{0.5in} $P'_{-ATR}(x) \defeq P_{-ATR}(x)$\newline
-$P'_{+low}(x) \defeq P_{+low}(x)$ \hspace{0.5in} $P'_{-low}(x) \defeq P_{-low}(x)$\newline
+P$'_{V}(x) \defeq$ P$_{V}(x)$
 
-\noindent Lastly using the predicate unspec($x$) defined above, how can we define the two association functions needed to describe the Akan vowel harmony pattern with blocking?
+P$'_{+ATR}(x) \defeq$ P$_{+ATR}(x)$ \hspace{2in} P$'_{-ATR}(x) \defeq$ P$_{-ATR}(x)$
+
+P$'_{+low}(x) \defeq$ P$_{+low}(x)$ \hspace{2in} P$'_{-low}(x) \defeq$ P$_{-low}(x)$
+
+\newpage
+\noindent Lastly using the predicate unspec($x$) defined above, how can we define the two association functions needed to describe the ATR harmony pattern with blocking?
 
 \noindent $\alpha_{ATR}'(x)\approx y \defeq$
 \vspace{1in}
 
 \noindent $\alpha_{low}'(x)\approx y \defeq$
-\vspace{2in}
+\vspace{1in}
+
+# Further Questions
+
+So we can use QFLFP to describe feature spreading with and without blocking when autosegmental association is a function. The next question I will investigate is: Can we use QFLFP and the association function to describe the behavior of other neutral vowels, i.e. transparent vowels? \vspace{2.5in}
 
 # References
 ```{r create_r-references}
