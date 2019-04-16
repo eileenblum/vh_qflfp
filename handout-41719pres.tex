@@ -335,22 +335,22 @@ structures in (\ref{ar.vh}), in which direction could a function that
 holds between tiers operate?
 
 A separate association function (let's call it \(\alpha\)) must be
-defined for each feature tier, but since they are all the same type of
-function (\(\alpha(x)\approx y\)) they will work in the same way. An
-example transformation for Akan is given in (\ref{akan.func}) using the
-unidirectional association function represented with arrows from vowels
-to a feature. In order to evaluate \(\alpha(x)\approx y\), the variable
-\(x\) would be used for an element on the vowel tier and \(y\) for an
-element on a feature tier.
+defined for each feature tier. Since featural associations are all the
+same type of function (\(\alpha_F(x)\approx y\)) they will work in the
+same way. An example transformation for the Akan-like pattern is given
+in (\ref{akan.func}) using the unidirectional association functions
+represented with arrows from vowels to a feature. In order to evaluate
+\(\alpha_F(x)\approx y\), the variable \(x\) would be used for an
+element on the vowel tier and \(y\) for an element on a feature tier.
 
 \begin{exe}
 \ex \label{akan.func} Association as a unidirectional function \\
   \begin{tikzpicture}[baseline=(current bounding box.north)]
-  \matrix [matrix of nodes, row sep=2.5ex, column sep=2.25ex, nodes={text height=1em, text depth=0.5em}] 
+  \matrix [matrix of math nodes, row sep=2.5ex, column sep=2.25ex, nodes={text height=1em, text depth=0.5em}] 
   {
-|(a)| +ATR$_1$ &             &             &           & |(c)| +ATR$_{1^1}$\\
-|(1)| V$_2$    & |(2)| V$_3$ & |(3)| V$_4$ & $\mapsto$ & |(4)| V$_{2^1}$ & |(5)| V$_{3^1}$ & |(6)| V$_{4^1}$ \\
-|(b)| -low$_5$ &             &             &           & |(d)| -low$_{5^1}$\\
+|(a)| +ATR_1 &             &             &           & |(c)| +ATR_{1^1}\\
+|(1)| V_2    & |(2)| V_3 & |(3)| V_4 & \mapsto & |(4)| V_{2^1} & |(5)| V_{3^1} & |(6)| V_{4^1} \\
+|(b)| -low_5 &             &             &           & |(d)| -low_{5^1}\\
   };
   \draw[black,<-] (a.south) -- (1.north);
   \draw[black,->] foreach \x in {1, 2, 3} {(\x.south) -- (b.north)};
@@ -358,6 +358,13 @@ element on a feature tier.
   \draw[black,->] foreach \x in {4, 5, 6} {(\x.south) -- (d.north)};
   \end{tikzpicture}
 \end{exe}
+
+\noindent Can we define the two association functions for the
+transformation in (\ref{akan.func})?
+
+\noindent \(\alpha_{ATR}'(x)\approx y \defeq\) \vspace{0.25in}
+
+\noindent \(\alpha_{low}'(x)\approx y \defeq\) \vspace{0.25in}
 
 \subsection{Total Function}\label{total-function}
 
@@ -434,7 +441,10 @@ by adding to (\ref{akan.block}), as in (\ref{totalfunc.block}).
 a feature association from one vowel only to an adjacent
 \emph{unspecified} vowel. First, we can define an unspecified element in
 the same way that we defined the first and last elements in a string.
-How would you define the unspec(\(x\)) predicate?
+Since we define separate functions for each feature tier, we must do the
+same with this new predicate; the vowels in (\ref{totalfunc.block}) are
+unspecified for ATR, but not low. How would you define the
+unspec\(_F(x)\) predicate?
 
 unspec\(_{ATR}(x) \defeq\) \vspace{0.5in}
 
@@ -457,7 +467,7 @@ P\('_{-low}(x) \defeq\) P\(_{-low}(x)\)
 
 \newpage
 
-\noindent Lastly using the predicate unspec(\(x\)) defined above, how
+\noindent Lastly using the predicate unspec\(_F(x)\) defined above, how
 can we define the two association functions needed to describe the ATR
 harmony pattern with blocking?
 
