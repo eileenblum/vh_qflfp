@@ -257,20 +257,20 @@ relation for vowels and each feature (separate ones for + and - values).
 \ex\label{qflfp.spread} $\langle$D; p, s, $\mathcal{A}$, P$_V$, P$_{+ATR}$, P$_{-ATR}$, P$_{+low}$, P$_{-low}\rangle$ 
 \end{exe}
 
-P\('_{V}(x) \defeq\) \vspace{0.5in}
+P\('_{V}(x) \defeq\) P\(_{V}(x)\)
 
-P\('_{+ATR}(x) \defeq\) \hspace{2.25in} P\('_{-ATR}(x) \defeq\)
-\vspace{0.5in}
+P\('_{+ATR}(x) \defeq\) P\(_{+ATR}(x)\) \hspace{2.25in}
+P\('_{-ATR}(x) \defeq\) P\(_{-ATR}(x)\)
 
-P\('_{+low}(x) \defeq\) \hspace{2.25in} P\('_{-low}(x) \defeq\)
-\vspace{0.5in}
+P\('_{+low}(x) \defeq\) P\(_{+low}(x)\) \hspace{2.25in}
+P\('_{-low}(x) \defeq\) P\(_{-low}(x)\)
 
 \noindent We can also define two association relations, between the
 vowel tier and each feature tier.
 
-\(\mathcal{A}_{ATR}'(x, y) \defeq\) \vspace{0.5in}
+\(\mathcal{A}_{ATR}'(x, y) \defeq \mathcal{A}_{ATR}(x, y)\vee [lfp R(x', p(y'))](x, y)\)
 
-\(\mathcal{A}_{low}'(x, y) \defeq\) \vspace{0.5in}
+\(\mathcal{A}_{low}'(x, y) \defeq \mathcal{A}_{low}(x, y)\vee [lfp R(x', p(y'))](x, y)\)
 
 \subsection{Blocking}\label{blocking}
 
@@ -299,8 +299,6 @@ vowels are underlyingly specified for ATR, we will see something like
   \end{tikzpicture}
 \end{exe}
 
-\newpage
-
 \noindent Again, each feature and all the vowels only appear in the
 output structure if they are present in the input structure. The idea
 that we want to capture is that a feature spreads from one vowel onto
@@ -313,17 +311,17 @@ relation?
 \ex\label{qflfp.spread} $\langle$D; p, s, $\mathcal{A}$, P$_V$, P$_{+ATR}$, P$_{-ATR}$, P$_{+low}$, P$_{-low}\rangle$ 
 \end{exe}
 
-P\('_{V}(x) \defeq\) \vspace{0.5in}
+P\('_{V}(x) \defeq\) P\(_{V}(x)\)
 
-P\('_{+ATR}(x) \defeq\) \hspace{2.25in} P\('_{-ATR}(x) \defeq\)
-\vspace{0.5in}
+P\('_{+ATR}(x) \defeq\) P\(_{+ATR}(x)\) \hspace{2.25in}
+P\('_{-ATR}(x) \defeq\) P\(_{+ATR}(x)\)
 
-P\('_{+low}(x) \defeq\) \hspace{2.25in} P\('_{-low}(x) \defeq\)
-\vspace{0.5in}
+P\('_{+low}(x) \defeq\) P\(_{+low}(x)\) \hspace{2.25in}
+P\('_{-low}(x) \defeq\) P\(_{+low}(x)\)
 
-\(\mathcal{A}_{ATR}'(x, y) \defeq\) \vspace{0.5in}
+\(\mathcal{A}_{ATR}'(x, y) \defeq \mathcal{A}_{ATR}(x, y)\vee [lfp R(x', p(y'))\wedge ...]\)
 
-\(\mathcal{A}_{low}'(x, y) \defeq\) \vspace{0.5in}
+\(\mathcal{A}_{low}'(x, y) \defeq \mathcal{A}_{low}(x, y)\vee [lfp R(x', p(y'))\wedge ...]\)
 
 \section{Association as a function}\label{association-as-a-function}
 
@@ -362,9 +360,9 @@ element on the vowel tier and \(y\) for an element on a feature tier.
 \noindent Can we define the two association functions for the
 transformation in (\ref{akan.func})?
 
-\noindent \(\alpha_{ATR}'(x)\approx y \defeq\) \vspace{0.25in}
+\noindent \(\alpha_{ATR}'(x)\approx y \defeq \alpha_{ATR}(x)\approx y\vee [lfp R(p(x'), y')](x,y)\)
 
-\noindent \(\alpha_{low}'(x)\approx y \defeq\) \vspace{0.25in}
+\noindent \(\alpha_{low}'(x)\approx y \defeq \alpha_{low}(x)\approx y\vee [lfp R(p(x'), y')](x,y)\)
 
 \subsection{Total Function}\label{total-function}
 
@@ -406,8 +404,6 @@ This will make the unbounded spreading ARs look like (\ref{total.func})
 to refer to unspecified vowels, which we could not do with the binary
 association relation.
 
-\newpage
-
 \subsection{ATR spread with blocking}\label{atr-spread-with-blocking}
 
 The major advantage of defining association as a function rather than a
@@ -446,9 +442,11 @@ same with this new predicate; the vowels in (\ref{totalfunc.block}) are
 unspecified for ATR, but not low. How would you define the
 unspec\(_F(x)\) predicate?
 
-unspec\(_{ATR}(x) \defeq\) \vspace{0.5in}
+unspec\(_{ATR}(x) \defeq \alpha_{ATR}(x)\approx x\)
 
-unspec\(_{low}(x) \defeq\) \vspace{0.5in}
+unspec\(_{low}(x) \defeq \alpha_{low}(x)\approx x\)
+
+\newpage
 
 \noindent Next, we can define the unary relations for each element in
 the same way we have been so far.
@@ -465,15 +463,13 @@ P\('_{-ATR}(x) \defeq\) P\(_{-ATR}(x)\)
 P\('_{+low}(x) \defeq\) P\(_{+low}(x)\) \hspace{2in}
 P\('_{-low}(x) \defeq\) P\(_{-low}(x)\)
 
-\newpage
-
 \noindent Lastly using the predicate unspec\(_F(x)\) defined above, how
 can we define the two association functions needed to describe the ATR
 harmony pattern with blocking?
 
-\noindent \(\alpha_{ATR}'(x)\approx y \defeq\) \vspace{1in}
+\noindent \(\alpha_{ATR}'(x)\approx y \defeq [lfp(\alpha_{ATR}(x)\approx y\wedge \neg unspec_{ATR}(x)) \vee (R(p(x'), y')\wedge unspec(x'))](x,y)\)
 
-\noindent \(\alpha_{low}'(x)\approx y \defeq\) \vspace{1in}
+\noindent \(\alpha_{low}'(x)\approx y \defeq \alpha_{low}(x)\approx y](x,y)\)
 
 \section{Further Questions}\label{further-questions}
 
