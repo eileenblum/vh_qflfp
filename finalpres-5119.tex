@@ -1,0 +1,178 @@
+\documentclass[ignorenonframetext,]{beamer}
+\setbeamertemplate{caption}[numbered]
+\setbeamertemplate{caption label separator}{: }
+\setbeamercolor{caption name}{fg=normal text.fg}
+\beamertemplatenavigationsymbolsempty
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+\usetheme[]{Boadilla}
+\usecolortheme{beaver}
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\newif\ifbibliography
+\hypersetup{
+            pdftitle={Phonology Seminar-final\_sp2019},
+            pdfauthor={Eileen Blum},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+
+% Prevent slide breaks in the middle of a paragraph:
+\widowpenalties 1 10000
+\raggedbottom
+
+\AtBeginPart{
+  \let\insertpartnumber\relax
+  \let\partname\relax
+  \frame{\partpage}
+}
+\AtBeginSection{
+  \ifbibliography
+  \else
+    \let\insertsectionnumber\relax
+    \let\sectionname\relax
+    \frame{\sectionpage}
+  \fi
+}
+\AtBeginSubsection{
+  \let\insertsubsectionnumber\relax
+  \let\subsectionname\relax
+  \frame{\subsectionpage}
+}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+\usepackage{tipa}
+\usepackage{gb4e}
+\noautomath
+\usepackage{tikz}
+\usetikzlibrary{matrix}
+\tikzset{marked/.style={draw=none, fill=none}}
+\usepackage{mathptmx}
+\usepackage{moresize}
+\setlength{\parindent}{2em}
+\usepackage{multicol}
+\usecolortheme[RGB={204,0,51}]{structure}
+
+\title{Phonology Seminar-final\_sp2019}
+\author{Eileen Blum}
+\date{4/26/2019}
+
+\begin{document}
+\frame{\titlepage}
+
+\begin{frame}{Introduction}
+
+\begin{itemize}
+\tightlist
+\item
+  Vowel harmony patterns with neutral vowels utilize:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    unbounded spreading
+  \item
+    blocking
+  \item
+    transparent vowels
+  \end{itemize}
+\item
+  Unbounded spreading and blocking are QFLFP definable over multi-tiered
+  autosegmental representations
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Multi-tiered ARs}
+
+\begin{itemize}
+\tightlist
+\item
+  Bottle brush representation
+\item
+  Obey OCP, NCC
+\end{itemize}
+
+Bottlebrush configuration with a multi-tiered AR
+
+\begin{tikzpicture}[baseline=(current bounding box.north)]
+  \matrix [matrix of nodes, ampersand replacement=\&, row sep=1.25ex, column sep=2.25ex, nodes={text height=0.75em, text depth=0.25em}] 
+  {
+               \& |(b)| $\pm$back \\
+|(a)| $\pm$ATR \& \\
+|(1)| V        \& \\
+|(l)| $\pm$low \& \\
+               \& |(r)| $\pm$round \\
+  };
+  \draw (a.south) -- (1.north);
+  \draw (b.south) -- (1.north);
+  \draw (1.south) -- (l.north);
+  \draw (1.south) -- (r.north);
+\end{tikzpicture}
+
+\end{frame}
+
+\begin{frame}{Association Function}
+
+\begin{itemize}
+\tightlist
+\item
+  Vowels cannot be associated to multiple feature values on the same
+  tier
+
+  \begin{itemize}
+  \tightlist
+  \item
+    unidrectional association function from vowel(s) to a feature
+  \end{itemize}
+\end{itemize}
+
+Possible vowel harmony ARs
+
+\begin{tikzpicture}[baseline=(current bounding box.north)]
+  \matrix [matrix of nodes, ampersand replacement=\&, row sep=2.5ex, column sep=2.25ex, nodes={text height=1em, text depth=0.5em}] 
+  {
+(a) \& |(2)| +F  \& |(3)| -F \& (b) \& |(4)| +F  \&           \& (c) \& |(5)| +F    \& |(6)| -F  \& (d) \& |(7)| +F\\
+    \& |(b)| V   \& |(c)| V  \&     \& |(d)| V   \& |(e)| V   \&     \& |(f)| V       \& |(g)| V   \&     & |(h)| V \& |(i)| V\\
+    \& |(g2)| +G \&          \&     \& |(g3)| +G \& |(g4)| -G \&     \& |(g5)| +G    \& |(g6)| -G \&     \& |(g7)| +G\\
+  };
+  \draw (2.south) -- (b.north);
+  \draw (3.south) -- (c.north);
+  \draw foreach \x in {b, c} {(\x.south) -- (g2.north)};
+  \draw foreach \x in {d, e} {(4.south) -- (\x.north)};
+  \draw (d.south) -- (g3.north);
+  \draw (e.south) -- (g4.north);
+  \draw (5.south) -- (f.north);
+  \draw (f.south) -- (g5.north);
+  \draw (6.south) -- (g.north);
+  \draw (g.south) -- (g6.north);
+  \draw foreach \x in {h, i} {(7.south) -- (\x.north)};
+  \draw foreach \x in {h, i} {(\x.south) -- (g7.north)};
+\end{tikzpicture}
+
+\end{frame}
+
+\end{document}

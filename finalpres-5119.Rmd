@@ -1,0 +1,80 @@
+---
+title: "Phonology Seminar-final_sp2019"
+author: "Eileen Blum"
+date: "4/26/2019"
+output: 
+  beamer_presentation:
+    theme: "Boadilla"
+    colortheme: "beaver"
+    toc: false
+    incremental: false
+    slide_level: 2
+header-includes:
+  - \usepackage{tipa}
+  - \usepackage{gb4e}
+  - \noautomath
+  - \usepackage{tikz}
+  - \usetikzlibrary{matrix}
+  - \tikzset{marked/.style={draw=none, fill=none}}
+  - \usepackage{mathptmx}
+  - \usepackage{moresize}
+  - \setlength{\parindent}{2em}
+  - \usepackage{multicol}
+  - \usecolortheme[RGB={204,0,51}]{structure}
+---
+
+## Introduction
+
+- Vowel harmony patterns with neutral vowels utilize:
+    + unbounded spreading
+    + blocking
+    + transparent vowels 
+- Unbounded spreading and blocking are QFLFP definable over multi-tiered autosegmental representations 
+
+## Multi-tiered ARs
+
+- Bottle brush representation
+- Obey OCP, NCC
+
+Bottlebrush configuration with a multi-tiered AR
+\begin{tikzpicture}[baseline=(current bounding box.north)]
+  \matrix [matrix of nodes, ampersand replacement=\&, row sep=1.25ex, column sep=2.25ex, nodes={text height=0.75em, text depth=0.25em}] 
+  {
+               \& |(b)| $\pm$back \\
+|(a)| $\pm$ATR \& \\
+|(1)| V        \& \\
+|(l)| $\pm$low \& \\
+               \& |(r)| $\pm$round \\
+  };
+  \draw (a.south) -- (1.north);
+  \draw (b.south) -- (1.north);
+  \draw (1.south) -- (l.north);
+  \draw (1.south) -- (r.north);
+\end{tikzpicture}
+
+## Association Function
+
+- Vowels cannot be associated to multiple feature values on the same tier
+    + unidrectional association function from vowel(s) to a feature
+
+Possible vowel harmony ARs
+\begin{tikzpicture}[baseline=(current bounding box.north)]
+  \matrix [matrix of nodes, ampersand replacement=\&, row sep=2.5ex, column sep=2.25ex, nodes={text height=1em, text depth=0.5em}] 
+  {
+(a) \& |(2)| +F  \& |(3)| -F \& (b) \& |(4)| +F  \&           \& (c) \& |(5)| +F    \& |(6)| -F  \& (d) \& |(7)| +F\\
+    \& |(b)| V   \& |(c)| V  \&     \& |(d)| V   \& |(e)| V   \&     \& |(f)| V       \& |(g)| V   \&     & |(h)| V \& |(i)| V\\
+    \& |(g2)| +G \&          \&     \& |(g3)| +G \& |(g4)| -G \&     \& |(g5)| +G    \& |(g6)| -G \&     \& |(g7)| +G\\
+  };
+  \draw (2.south) -- (b.north);
+  \draw (3.south) -- (c.north);
+  \draw foreach \x in {b, c} {(\x.south) -- (g2.north)};
+  \draw foreach \x in {d, e} {(4.south) -- (\x.north)};
+  \draw (d.south) -- (g3.north);
+  \draw (e.south) -- (g4.north);
+  \draw (5.south) -- (f.north);
+  \draw (f.south) -- (g5.north);
+  \draw (6.south) -- (g.north);
+  \draw (g.south) -- (g6.north);
+  \draw foreach \x in {h, i} {(7.south) -- (\x.north)};
+  \draw foreach \x in {h, i} {(\x.south) -- (g7.north)};
+\end{tikzpicture}
