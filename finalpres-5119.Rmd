@@ -1,7 +1,8 @@
 ---
-title: "Phonology Seminar-final_sp2019"
+title: "Vowel harmony with QFLFP"
 author: "Eileen Blum"
-date: "4/26/2019"
+institute: "Phonology Seminar Sp19"
+date: "5/1/2019"
 output: 
   beamer_presentation:
     theme: "Boadilla"
@@ -21,7 +22,15 @@ header-includes:
   - \setlength{\parindent}{2em}
   - \usepackage{multicol}
   - \usecolortheme[RGB={204,0,51}]{structure}
+  - \def\defeq{\mathrel{\buildrel \mbox{\footnotesize def} \over =}}
 ---
+
+## Introduction
+
+- Vowel harmony transformations with neutral vowels utilize:
+    + unbounded spreading
+    + blocking
+    + transparency
 
 ## Introduction
 
@@ -29,21 +38,30 @@ header-includes:
     + unbounded spreading
     + blocking
     + transparent vowels 
-- Unbounded spreading and blocking are QFLFP definable over multi-tiered autosegmental representations 
+- Unbounded spreading and blocking are QFLFP definable over multi-tiered autosegmental representations
+    + when association is a total function
+    
+## Introduction
+
+- Vowel harmony patterns with neutral vowels utilize:
+    + unbounded spreading
+    + blocking
+    + transparent vowels 
+- Unbounded spreading and blocking are QFLFP definable over multi-tiered autosegmental representations
+    + when association is a total function
+- Harmony across transparent vowels may not be
 
 ## Multi-tiered ARs
 
-- Bottle brush representation
-- Obey OCP, NCC
+Bottle brush representation
 
-Bottlebrush configuration with a multi-tiered AR
 \begin{tikzpicture}[baseline=(current bounding box.north)]
   \matrix [matrix of nodes, ampersand replacement=\&, row sep=1.25ex, column sep=2.25ex, nodes={text height=0.75em, text depth=0.25em}] 
   {
                \& |(b)| $\pm$back \\
-|(a)| $\pm$ATR \& \\
-|(1)| V        \& \\
-|(l)| $\pm$low \& \\
+|(a)| $\pm$ATR \&                 \\
+|(1)| V        \&                 \\
+|(l)| $\pm$low \&                 \\
                \& |(r)| $\pm$round \\
   };
   \draw (a.south) -- (1.north);
@@ -52,29 +70,223 @@ Bottlebrush configuration with a multi-tiered AR
   \draw (1.south) -- (r.north);
 \end{tikzpicture}
 
+## Multi-tiered ARs
+
+\begin{multicols}{2}
+
+Bottle brush representation
+
+\begin{tikzpicture}[baseline=(current bounding box.north)]
+  \matrix [matrix of nodes, ampersand replacement=\&, row sep=1.25ex, column sep=2.25ex, nodes={text height=0.75em, text depth=0.25em}] 
+  {
+               \& |(b)| $\pm$back \\
+|(a)| $\pm$ATR \&                 \\
+|(1)| V        \&                 \\
+|(l)| $\pm$low \&                 \\
+               \& |(r)| $\pm$round \\
+  };
+  \draw (a.south) -- (1.north);
+  \draw (b.south) -- (1.north);
+  \draw (1.south) -- (l.north);
+  \draw (1.south) -- (r.north);
+\end{tikzpicture}
+
+\columnbreak
+
+Obey OCP, NCC
+
+\begin{tikzpicture}[baseline=(current bounding box.north)]
+  \matrix [matrix of nodes, ampersand replacement=\&, row sep=2.25ex, column sep=2.25ex, nodes={text height=0.75em, text depth=0.25em}] 
+  {
+|(c)| +F \& |(d)| -F \& |(e)| +F\\
+|(2)| V  \& |(3)| V  \& |(4)| V \\
+|(f)| +G\\
+  };
+  \draw (c.south) -- (2.north);
+  \draw (d.south) -- (3.north);
+  \draw (e.south) -- (4.north);
+  \draw foreach \x in {2, 3, 4} {(\x.south) -- (f.north)};
+\end{tikzpicture}
+\end{multicols}
+
+## Unbounded Spreading
+
+\noindent An Akan-like pattern demonstrates unbounded spreading of ATR when all vowels are [-low]
+
+\begin{multicols}{2}
+
+\begin{tikzpicture}[baseline=(current bounding box.north)]
+  \matrix [matrix of nodes, ampersand replacement=\&, row sep=2.25ex, column sep=2.25ex, nodes={text height=0.75em, text depth=0.25em}] 
+  {
+|(a1)| +ATR \&          \& \\
+|(1)| V    \& |(2)| V  \& |(3)| V \& |(4)| V \& $\mapsto$\\
+|(a2)| -low\\
+  };
+  \draw (a1.south) -- (1.north);
+  \draw foreach \x in {1, 2, 3, 4} {(\x.south) -- (a2.north)};
+\end{tikzpicture}
+
+\columnbreak
+
+\begin{tikzpicture}[baseline=(current bounding box.north)]
+  \matrix [matrix of nodes, ampersand replacement=\&, row sep=2.25ex, column sep=2.25ex, nodes={text height=0.75em, text depth=0.25em}] 
+  {
+|(a1)| +ATR \&          \& \\
+|(1)| V    \& |(2)| V  \& |(3)| V \& |(4)| V \\
+|(a2)| -low\\
+  };
+  \draw foreach \x in {1, 2, 3, 4} {(a1.south) -- (\x.north)};
+  \draw foreach \x in {1, 2, 3, 4} {(\x.south) -- (a2.north)};
+\end{tikzpicture}
+\end{multicols}
+
+## Defining Multi-tiered ARs with QFLFP
+
+Like strings, ARs can be defined with QFLFP
+
+- Assume all features are present underlyingly
+- Signature: $\langle D; p,\mathcal{A}, P_V, P_{+ATR}, P_{-low}\rangle$
+- First, define the unary relations of each element in the output structure in terms of the input structure
+    + P$'_V(x) \defeq$ P$_V(x)$
+    + P$'_{+ATR}(x) \defeq$ P$_{+ATR}(x)$
+    + P$'_{-low}(x) \defeq$ P$_{-low}(x)$
+    
+## Defining the Association Relation
+
+- Chandlee & Jardine (2019) introduce the binary association relation, which I define between each feature tier and the vowel tier
+    + $\mathcal{A}'_{ATR}(x, y) \defeq [lfp \mathcal{A}_{ATR}(x, y) \vee R(x', p(y'))](x, y)$
+    + $\mathcal{A}'_{low}(x, y) \defeq \mathcal{A}_{low}(x, y)$
+        - $x$ evaluated as a feature and y as a vowel
+
+## Blocking
+
+\noindent In the same Akan-like pattern, a [+low] vowel blocks the spread of ATR
+
+\begin{multicols}{2}
+
+\begin{tikzpicture}[baseline=(current bounding box.north)]
+  \matrix [matrix of nodes, ampersand replacement=\&, row sep=2.25ex, column sep=2.25ex, nodes={text height=0.75em, text depth=0.25em}] 
+  {
+|(a1)| +ATR \&         \& |(b1)| -ATR\\
+|(1)| V     \& |(2)| V \& |(3)| V \& |(4)| V \& $\mapsto$\\
+|(a2)| -low \&         \& |(b2)| +low \\
+  };
+  \draw (a1.south) -- (1.north);
+  \draw (b1.south) -- (3.north);
+  \draw foreach \x in {1, 2} {(\x.south) -- (a2.north)};
+  \draw foreach \x in {3, 4} {(\x.south) -- (b2.north)};
+\end{tikzpicture}
+
+\columnbreak
+
+\begin{tikzpicture}[baseline=(current bounding box.north)]
+  \matrix [matrix of nodes, ampersand replacement=\&, row sep=2.25ex, column sep=2.25ex, nodes={text height=0.75em, text depth=0.25em}] 
+  {
+|(a1)| +ATR \&         \& |(b1)| -ATR\\
+|(1)| V     \& |(2)| V \& |(3)| V \& |(4)| V \\
+|(a2)| -low \&         \& |(b2)| +low \\
+  };
+  \draw foreach \x in {1, 2} {(a1.south) -- (\x.north)};
+  \draw foreach \x in {3, 4} {(b1.south) -- (\x.north)};
+  \draw foreach \x in {1, 2} {(\x.south) -- (a2.north)};
+  \draw foreach \x in {3, 4} {(\x.south) -- (b2.north)};
+\end{tikzpicture}
+\end{multicols}
+
+## Defining Blocking
+
+- Again, each element in the output is also present in the input
+    + P$'_V(x) \defeq$ P$_V(x)$
+    + P$'_{+ATR}(x) \defeq$ P$_{+ATR}(x)$ \hspace{0.15in} P$'_{-ATR}(x) \defeq$ P$_{-ATR}(x)$
+    + P$'_{+low}(x) \defeq$ P$_{+low}(x)$ \hspace{0.25in} P$'_{-low}(x) \defeq$ P$_{-low}(x)$
+- Blocking cannot be defined using the binary association relation 
+      + $\mathcal{A}'_{ATR}(x, y) \defeq [lfp \mathcal{A}_{ATR}(x, y) \vee (R(x', p(y'))\wedge...)](x, y)$
+      + $\mathcal{A}'_{low}(x, y) \defeq [lfp \mathcal{A}_{low}(x, y) \vee (R(x', p(y'))\wedge...)](x, y)$
+- Must introduce a new variable, which requires a quantifier, or
+- refer to unassociated input vowels
+
 ## Association Function
 
 - Vowels cannot be associated to multiple feature values on the same tier
-    + unidrectional association function from vowel(s) to a feature
+- Unidrectional association function 
+    + from vowel(s) to a feature: x evaluated as a vowel, y as a feature
 
-Possible vowel harmony ARs
+\begin{tikzpicture}[baseline=(current bounding box.north)]
+  \matrix [matrix of math nodes, ampersand replacement=\&, row sep=2.5ex, column sep=2.25ex, nodes={text height=1em, text depth=0.5em}] 
+  {
+|(a)| +ATR_1 \&             \&             \&           \& |(c)| +ATR_{1^1}\\
+|(1)| V_2    \& |(2)| V_3   \& |(3)| V_4   \& \mapsto   \& |(4)| V_{2^1} \& |(5)| V_{3^1} \& |(6)| V_{4^1} \\
+|(b)| -low_5 \&             \&             \&           \& |(d)| -low_{5^1}\\
+  };
+  \draw[black,<-] (a.south) -- (1.north);
+  \draw[black,->] foreach \x in {1, 2, 3} {(\x.south) -- (b.north)};
+  \draw[black,<-] foreach \x in {4, 5, 6} {(c.south) -- (\x.north)};
+  \draw[black,->] foreach \x in {4, 5, 6} {(\x.south) -- (d.north)};
+  \end{tikzpicture}
+- $\alpha'_{ATR}(x) \approx y \defeq [lfp \alpha_{ATR}(x) \approx y \vee R(p(x'), y')](x, y)$
+- $\alpha'_{low}(x) \approx y \defeq [lfp \alpha_{low}(x) \approx y \vee R(p(x'), y')](x, y)$
+
+## Total Function
+
+- "unassociated" input vowels associate to themselves
+    + unspec$_{ATR}(x) \defeq \alpha_{ATR}(x) \approx x$
+
 \begin{tikzpicture}[baseline=(current bounding box.north)]
   \matrix [matrix of nodes, ampersand replacement=\&, row sep=2.5ex, column sep=2.25ex, nodes={text height=1em, text depth=0.5em}] 
   {
-(a) \& |(2)| +F  \& |(3)| -F \& (b) \& |(4)| +F  \&           \& (c) \& |(5)| +F    \& |(6)| -F  \& (d) \& |(7)| +F\\
-    \& |(b)| V   \& |(c)| V  \&     \& |(d)| V   \& |(e)| V   \&     \& |(f)| V       \& |(g)| V   \&     & |(h)| V \& |(i)| V\\
-    \& |(g2)| +G \&          \&     \& |(g3)| +G \& |(g4)| -G \&     \& |(g5)| +G    \& |(g6)| -G \&     \& |(g7)| +G\\
+|(a)| +ATR$_1$ \&             \&             \&           \& |(c)| +ATR$_{1^1}$\\
+|(1)| V$_2$    \& |(2)| V$_3$ \& |(3)| V$_4$ \& $\mapsto$ \& |(4)| V$_{2^1}$ \& |(5)| V$_{3^1}$ \& |(6)| V$_{4^1}$ \\
+|(b)| -low$_5$ \&             \&             \&           \& |(d)| -low$_{5^1}$\\
   };
-  \draw (2.south) -- (b.north);
-  \draw (3.south) -- (c.north);
-  \draw foreach \x in {b, c} {(\x.south) -- (g2.north)};
-  \draw foreach \x in {d, e} {(4.south) -- (\x.north)};
-  \draw (d.south) -- (g3.north);
-  \draw (e.south) -- (g4.north);
-  \draw (5.south) -- (f.north);
-  \draw (f.south) -- (g5.north);
-  \draw (6.south) -- (g.north);
-  \draw (g.south) -- (g6.north);
-  \draw foreach \x in {h, i} {(7.south) -- (\x.north)};
-  \draw foreach \x in {h, i} {(\x.south) -- (g7.north)};
-\end{tikzpicture}
+  \draw[black,<-] (a.south) -- (1.north);
+  \draw[black,->] foreach \x in {1, 2, 3} {(\x.south) -- (b.north)};
+  \draw[black,<-] foreach \x in {4, 5, 6} {(c.south) -- (\x.north)};
+  \draw[black,->] foreach \x in {4, 5, 6} {(\x.south) -- (d.north)};
+  \path (2) edge [loop above] (2);
+  \path (3) edge [loop above] (3);
+  \end{tikzpicture}
+  
+## Blocking with association function
+
+\noindent $\langle D; p, \alpha_{ATR}, \alpha_{low}$, P$_V$, P$_{+ATR}$, P$_{-ATR}$, P$_{+low}$, P$_{-low}\rangle$ 
+
+- P$'_V(x) \defeq$ P$'_V(x)$
+- P$'_{+ATR}(x) \defeq$ P$'_{+ATR}(x)$ \hspace{0.15in} P$'_{-ATR}(x) \defeq$ P$'_{-ATR}(x)$
+- P$'_{+low}(x) \defeq$ P$'_{+low}(x)$ \hspace{0.25in} P$'_{-low}(x) \defeq$ P$'_{-low}(x)$
+
+- $\alpha'_{ATR}(x) \approx y \defeq [lfp (\alpha_{ATR}(x) \approx y \wedge \neg x\approx y) \vee (R(p(x'), y') \wedge unspec_{ATR}(x))](x, y)$
+- $\alpha'_{low}(x) \approx y \defeq  \alpha_{low}(x) \approx y \wedge \neg x\approx y$
+
+## Transparency
+
+\noindent Can the association function and QFLFP also be used to describe harmony across transparent vowels?
+
+\noindent \begin{tikzpicture}[baseline=(current bounding box.north)]
+  \matrix [matrix of nodes, ampersand replacement=\&, row sep=2.5ex, column sep=0.5ex, nodes={text height=1em, text depth=0.5em}] 
+  {
+|(a1)| +back$_1$ \& |(b1)| -back$_2$ \&             \& |(b3)| +back$_3$ \&           \& |(c1)| +back$_{1^1}$ \& |(d1)| -back$_{2^1}$ \& \& |(e1)| +back$_{3^1}$ \\
+|(1)| V$_4$      \& |(2)| V$_5$      \& |(3)| V$_6$ \& |(4)| V$_7$ \& $\mapsto$ \& |(5)| V$_{4^1}$           \& |(6)| V$_{5^1}$ \& |(7)| V$_{6^1}$ \& |(8)| V$_{7^1}$\\
+|(a2)| +low$_8$  \& |(b2)| -low$_9$  \&             \& |(c2)| +low$_10$ \&           \& |(d2)| +low$_{8^1}$ \& |(e2)| -low$_{9^1}$ \& \& |(f2)| +low$_{10^1}$\\
+  };
+  \draw[black,<-] (a1.south) -- (1.north);
+  \draw[black,<-] (b1.south) -- (2.north);
+  \draw[black,<-] (b3.south) -- (4.north);
+  \draw[black,->] (1.south) -- (a2.north);
+  \draw[black,->] foreach \x in {2, 3} {(\x.south) -- (b2.north)};
+  \draw[black,->] (4.south) -- (c2.north);
+  \draw[black,<-] (c1.south) -- (5.north);
+  \draw[black,<-] (e1.south) -- (8.north);
+  \draw[black,<-] foreach \x in {6, 7} {(d1.south) -- (\x.north)};
+  \draw[black,->] (5.south) -- (d2.north);
+  \draw[black,->] foreach \x in {6, 7} {(\x.south) -- (e2.north)};
+  \draw[black,->] (8.south) -- (f2.north);
+  \end{tikzpicture}
+- If all features are present underlyingly, works same as blocking?
+
+## Thank you!
+
+\underline{References}
+
+- Chandlee, J. & Jardine, A. (2019). Autosegmental input strictly local functions
+- Clements, G. (1976). Vowel harmony in non-linear generative phonology: An autosegmental model. Bloomington, Indiana University Linguistics Club
+- Goldsmith, J. (1976). Autosegmental phonology (PhD thesis). Massachusetts Institute of Technology
