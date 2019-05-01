@@ -153,7 +153,7 @@ Like strings, ARs can be defined with QFLFP
     
 ## Defining the Association Relation
 
-- Chandlee & Jardine (2019) introduce the binary association relation, which I define between each feature tier and the vowel tier
+- Chandlee & Jardine (2019) introduce the binary association relation, defined between each feature tier and the vowel tier
     + $\mathcal{A}'_{ATR}(x, y) \defeq [lfp \mathcal{A}_{ATR}(x, y) \vee R(x', p(y'))](x, y)$
     + $\mathcal{A}'_{low}(x, y) \defeq \mathcal{A}_{low}(x, y)$
         - $x$ evaluated as a feature and y as a vowel
@@ -193,6 +193,13 @@ Like strings, ARs can be defined with QFLFP
 \end{tikzpicture}
 \end{multicols}
 
+## Defining Blocking
+
+- Again, each element in the output is also present in the input
+    + P$'_V(x) \defeq$ P$_V(x)$
+    + P$'_{+ATR}(x) \defeq$ P$_{+ATR}(x)$ \hspace{0.15in} P$'_{-ATR}(x) \defeq$ P$_{-ATR}(x)$
+    + P$'_{+low}(x) \defeq$ P$_{+low}(x)$ \hspace{0.25in} P$'_{-low}(x) \defeq$ P$_{-low}(x)$
+    
 ## Defining Blocking
 
 - Again, each element in the output is also present in the input
