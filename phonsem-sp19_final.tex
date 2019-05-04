@@ -1,0 +1,497 @@
+\documentclass[,doc,floatsintext]{apa6}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdftitle={Vowel harmony with QFLFP},
+            pdfauthor={Eileen Blum},
+            pdfkeywords={keywords},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\newcommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+  \title{Vowel harmony with QFLFP}
+  \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+  \author{Eileen Blum\textsuperscript{1}}
+  \preauthor{\centering\large\emph}
+  \postauthor{\par}
+  \date{}
+  \predate{}\postdate{}
+
+\shorttitle{VHQFLFP}
+\authornote{Eileen Blum is a graduate student in the Department of Linguistics at Rutgers University.
+
+
+Correspondence concerning this article should be addressed to Eileen Blum, 18 Seminary Place, New Brunswick, NJ 08901. E-mail: eileen.blum@rutgers.edu}
+\affiliation{
+\vspace{0.5cm}
+\textsuperscript{1} Rutgers University}
+\keywords{keywords\newline\indent Word count: X}
+\usepackage{csquotes}
+\usepackage{upgreek}
+\captionsetup{font=singlespacing,justification=justified}
+
+\usepackage{longtable}
+\usepackage{lscape}
+\usepackage{multirow}
+\usepackage{tabularx}
+\usepackage[flushleft]{threeparttable}
+\usepackage{threeparttablex}
+
+\newenvironment{lltable}{\begin{landscape}\begin{center}\begin{ThreePartTable}}{\end{ThreePartTable}\end{center}\end{landscape}}
+
+\makeatletter
+\newcommand\LastLTentrywidth{1em}
+\newlength\longtablewidth
+\setlength{\longtablewidth}{1in}
+\newcommand{\getlongtablewidth}{\begingroup \ifcsname LT@\roman{LT@tables}\endcsname \global\longtablewidth=0pt \renewcommand{\LT@entry}[2]{\global\advance\longtablewidth by ##2\relax\gdef\LastLTentrywidth{##2}}\@nameuse{LT@\roman{LT@tables}} \fi \endgroup}
+
+
+\usepackage{tipa}
+\usepackage{gb4e}
+\noautomath
+\usepackage{tikz}
+\usetikzlibrary{matrix}
+\tikzset{marked/.style={draw=none, fill=none}}
+\usetikzlibrary{topaths}
+\usepackage{mathptmx}
+\usepackage{moresize}
+\setlength{\parindent}{2em}
+\def\defeq{\mathrel{\buildrel \mbox{\footnotesize def} \over =}}
+
+\usepackage{amsthm}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}{Lemma}[section]
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{corollary}{Corollary}[section]
+\newtheorem{proposition}{Proposition}[section]
+\theoremstyle{definition}
+\newtheorem{example}{Example}[section]
+\theoremstyle{definition}
+\newtheorem{exercise}{Exercise}[section]
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\newtheorem*{solution}{Solution}
+\begin{document}
+\maketitle
+
+\section{Introduction}\label{introduction}
+
+\section{Multi-tiered ARs}\label{multi-tiered-ars}
+
+This paper investigates the utility of Quantifier-free Least Fixed Point
+logic (QFLFP) for describing vowel harmony transformations over
+multi-tiered autosegmental representations (ARs). The multi-tiered ARs
+in this paper utilize a version of Hayes
+(\protect\hyperlink{ref-hayes1990}{1990})'s bottlebrush theory of vowel
+feature representations such that each feature is represented on a
+separate tier. Assuming binary vowel features means that each feature
+tier includes both the + and - values of a particular feature.
+Associations connect the segmental and feature tiers such that each
+vowel is directly associated to an element on multiple feature tiers;
+thus \enquote{the CV tier\ldots{}resembles the spine of a bottlebrush
+with features branching off}(Hayes,
+\protect\hyperlink{ref-hayes1990}{1990}). The ARs used throughout this
+paper abstract away from consonants and thus the \enquote{spine of the
+bottlebrush}(Hayes, \protect\hyperlink{ref-hayes1990}{1990}) only
+includes vowels because vowel harmony is assumed to affect only vowel
+features.
+
+Much work with ARs includes assumptions about (im)possible autosegmental
+structures: the Obligatory Contour Principle (OCP)(Leben,
+\protect\hyperlink{ref-leben1973}{1973}) and the No Crossing Constraint
+(NCC) (Goldsmith, \protect\hyperlink{ref-Goldsmith1976}{1976}; Sagey,
+\protect\hyperlink{ref-sagey1986}{1986}). The investigation into logical
+descriptions of vowel harmony transformations carried out here will
+provide insights into the necessity of these two constraints on both
+input (underlying) and output (surface) structures. Examples of
+structures that violate each of these constraints are shown in
+(\ref{ncc.ex})-(\ref{ocp.ex}) below.
+
+\begin{exe}
+\ex \label{ncc.ex} Violates NCC
+  \begin{tikzpicture}[baseline=(current bounding box.north)]
+  \matrix [matrix of nodes, row sep=2.5ex, column sep=2.25ex, nodes={text height=1em, text depth=0.5em}] 
+  {
+* & |(a)| +ATR & |(b)| -ATR \\
+  & |(c)| V    & |(d)| V \\
+  & |(e)| -low &  \\
+  };
+  \draw (a.south) -- (d.north);
+  \draw (b.south) -- (c.north);
+  \draw[thick,black,->] (a) -- (b);
+  \draw[thick,black,->] (c) -- (d);
+  \draw foreach \x in {c, d} {(\x.south) -- (e.north)};
+  \end{tikzpicture}
+\end{exe}
+
+\begin{exe}
+\ex \label{ocp.ex} Violates OCP
+  \begin{tikzpicture}[baseline=(current bounding box.north)]
+  \matrix [matrix of nodes, row sep=2.5ex, column sep=2.25ex, nodes={text height=1em, text depth=0.5em}] 
+  {
+* & |(a)| -ATR & |(b)| -ATR \\
+  & |(c)| V    & |(d)| V \\
+  & |(e)| -low & |(f)| -low \\
+  };
+  \draw (a.south) -- (c.north);
+  \draw (b.south) -- (d.north);
+  \draw (c.south) -- (e.north);
+  \draw (d.south) -- (f.north);
+  \draw[thick,black,->] (a) -- (b);
+  \draw[thick,black,->] (c) -- (d);
+  \draw[thick,black,->] (e) -- (f);
+  \end{tikzpicture}
+\end{exe}
+
+The NCC states that association lines between the segmental tier and a
+feature tier never cross. Odden
+(\protect\hyperlink{ref-odden1994}{1994}) adds that the NCC can only
+evaluate the association between the segmental and one featural tier at
+a time. The representation in (\ref{akan.ex3}) violates the NCC because
++ATR precedes -ATR, but is associated to a vowel that is preceded by a
+vowel associated to -ATR; this configuration creates visually crossed
+association lines.
+
+the OCP stipulates that successive featural elements must be distinct.
+The representation in (\ref{akan.ex4}) violates the OCP because on both
+the ATR and low feature tiers there are two identical successive
+features, -ATR and -low respectively. The OCP in conjunction with FS
+results in representations where multiple vowels are associated to a
+single feature rather than having multiple successive iterations of the
+same feature each associated to a single vowel. An example
+representation of an Akan word that satisfies all of the AR properties
+discussed here is shown in (\ref{akan.ex}).
+
+Both the NCC and the OCP have also been derived via a concatenation
+operation (\(\circ\)) that merges autosegmental \enquote{graph
+primitives}(Jardine \& Heinz,
+\protect\hyperlink{ref-jardineheinz2015}{2015}, p. 1). An autosegmental
+graph primitive consists of an element on the segmental tier, the
+elements on each feature tier and the associations between the featural
+and segmental tiers. The concatenation operation combines a finite set
+of adjacent graph primitives to generate a fully specified AR. For
+example, the AR in (\ref{akan.ex}) is derived from the set of graph
+primitives in (\ref{concat.ex}). Each primitive in (\ref{concat.ex}) is
+concatenated with a single adjacent primitive. If two adjacent
+primitives share an identical feature those two features are merged into
+one feature with two associations, as in (\ref{akan.ex}). The merging of
+identical adjacent features essentially prevents surface ARs from having
+multiple iterations of a feature and crossed associations, thus
+satisfying both the OCP and the NCC. However, if two segmental elements
+are associated to the exact same feature and a different element
+intervenes then both iterations of that feature will occur in the
+surface AR because only adjacent primitive elements are concatenated and
+can thus be merged. This dissertation will show that an intervening
+element can be a vowel associated to the same feature with a different
+value or a domain boundary. It will further show that a domain boundary
+primitive may include that boundary on both segmental and feature tiers.
+
+\begin{exe}
+\ex \label{concat.ex} Concatenation of adjacent autosegmental graph primitives \\
+  \begin{tikzpicture}[baseline=(current bounding box.north)]
+  \matrix [matrix of nodes, row sep=2.5ex, column sep=2.25ex, nodes={text height=1em, text depth=0.5em}] 
+  {
+  &                                     & |(a)| -ATR &                                     & |(b)| -ATR \\
+t & \node {}; \draw(0, 0) circle (3pt); & |(1)| i    & \node {}; \draw(0, 0) circle (3pt); & |(2)| e \\
+  &                                     & |(c)| -low &                                     & |(d)| -low \\
+  };
+  \draw (a.south) -- (1.north);
+  \draw (1.south) -- (c.north);
+  \draw (b.south) -- (2.north);
+  \draw (2.south) -- (d.north);
+  \end{tikzpicture}
+\end{exe}
+
+This paper will also provide insights into the necessity of the
+assumption that surface ARs obey Full Specification (FS)(Clements,
+\protect\hyperlink{ref-Clements1976}{1976}), which is held in my current
+ongoing work with multi-tiered ARs of vowel harmony. An example of a
+structure that violates FS is in (\ref{fs.ex}).
+
+\begin{exe}
+\ex \label{akan.ex2} Violates FS
+  \begin{tikzpicture}[baseline=(current bounding box.north)]
+  \matrix [matrix of nodes, row sep=2.5ex, column sep=2.25ex, nodes={text height=1em, text depth=0.5em}] 
+  {
+* & |(b)| -ATR & \\
+  & |(d)| V    & |(e)| V \\
+  & |(f)| -low & \\
+  };
+  \draw (b.south) -- (d.north);
+  \draw (d.south) -- (f.north);
+  \draw[thick,black,->] (d) -- (e);
+  \draw foreach \x in {d, e} {(\x.south) -- (f.north)};
+  \end{tikzpicture}
+\end{exe}
+
+FS means that each featural element must be associated to at least one
+vowel on the segmental tier and each vowel on the segmental tier must be
+associated to at least one element on each featural tier. FS crucially
+allows vowels to be associated to multiple featural tiers as is
+necessary for each vowel feature to occupy its own tier. The
+hypothetical representation in (\ref{akan.ex2}) straighforwardly
+violates FS because there is a vowel that is not associated to any
+feature on the ATR tier. While both vowels are associated to a single
+-low feature, the second vowel is not associated to any feature on the
+ATR tier. Since vowel harmony patterns will be analyzed, it will be
+assumed that consonants cannot be associated to vowel features and that
+FS and vowel harmony in general ignore consonantal elements on the
+segmental tier.
+
+A notable effect of FS along with the NCC is that they prevent what have
+been called gapped structures (Archangeli \& Pulleyblank,
+\protect\hyperlink{ref-archangelipulleyblank1994}{1994}; Ringen \& Vago,
+\protect\hyperlink{ref-ringenvago1998}{1998}). A gapped structure is one
+in which a feature appears to have skipped over a vowel that it could
+potentially be associated to. FS would prevent gapped structures in
+which the \enquote{skipped} vowel is not associated to anything on that
+particular feature's tier. The NCC would prevent gapped structures in
+which the surrounding two vowels are associated to a single feature and
+the intervening \enquote{skipped} vowel is associated to a different
+feature on the same tier.
+
+\section{QF Logical Transductions}\label{qf-logical-transductions}
+
+Phonological transformations can be described using logical
+transductions, which characterize functions. The expressivity of a logic
+determines the class of functions that it describes. For example,
+previous work has shown that Input Strictly Local (ISL) functions are
+describable with quantifier-free (QF) logical transductions (Chandlee,
+\protect\hyperlink{ref-chandlee2014}{2014}; Chandlee \& Heinz,
+\protect\hyperlink{ref-chandleeheinz2018}{2018}). QF logic is precisely
+first-order (FO) logic without quanitfiers (\(\exists\) or \(\forall\)).
+In this logic, a term picks out a single element in a model's domain, so
+a variable is considered a term and a function applied to a term is also
+a term.
+
+\begin{exe}
+\ex Terms: \label{terms}
+  \begin{xlist}
+  \ex a variable $x, y, z, ...$
+  \ex a function $f$ applied to a term $t: f(t)$
+  \end{xlist}
+\end{exe}
+
+QF transductions define an output string in terms of the elements and
+relations of the input string using atomic formulas that take terms.
+
+\begin{exe}
+\ex QF atomic formulas\label{atom}
+  \begin{xlist}
+  \ex a unary relation P(t)
+  \ex a binary relation R(t$_1$, t$_2$) and
+  \ex t$_1 \approx$ t$_2$
+  \end{xlist}
+\end{exe}
+
+\noindent For an input alphabet \(\Sigma\) and an output alphabet
+\(\Gamma\) a logical transduction consists of a copyset C, a set of
+unary output condition predicates, and set of unary predicates to label
+the output elements. The copyset contains a copy of each input element,
+which is given a label via the unary predicates P\(^C_{\gamma}(x)\). The
+unary output condition predicates define the conditions under which the
+copy of an input element is present in the output. Lastly, QF
+transductions are order-preserving as a result of the definition below.
+
+\begin{exe}
+\ex\label{order-pres} Let $<$ (and$\leq$) be the transitive (and reflexive) closure of p; build p$'$ such that its transitive closure is $<'$, defined as follows: for all $c, e\in C$
+\end{exe}
+
+\hspace{1.85in}
+\(\begin{array}{ccc} d^c_1 <' d^e_2 \defeq & x<y & if c\geq e \\  & x\leq y & if c<e \end{array}\)
+\vspace{0.2in}
+
+\subsection{Order over strings}\label{order-over-strings}
+
+If we change our binary ordering relation between elements in a string
+to a function that applies to an element then we can represent the
+successor relation (\(\lhd\)) using a predecessor function (p(\(x\))).
+Thus the ordering between elements is characterized by recursively
+picking out elements and their predecessors. For example, for the string
+in (\ref{string}) the predecessor of 5 is 4 and so p(5) = 4, p(p(5)) =
+3, etc. In order to make predecessor a total function, the first element
+is defined as that which is its own predecessor.
+
+\begin{exe}
+\ex Ordering in a string with the predecessor function \label{string}\\
+  \begin{tikzpicture}
+\node [circle,draw] (1) at (0,0) {a};
+\node [circle,draw] (2) at (1,0) {b};
+\node [circle,draw] (3) at (2,0) {b};
+\node [circle,draw] (4) at (3,0) {a};
+\node [circle,draw] (5) at (4,0) {c};
+\draw (1) node [label=below left:1] {};
+\draw (2) node [label=below left:2] {};
+\draw (3) node [label=below left:3] {};
+\draw (4) node [label=below left:4] {};
+\draw (5) node [label=below left:5] {};
+\path[<-] (1) edge [bend left] node [above] {p} (2);
+\path[<-] (2) edge [bend left] node [above] {p} (3);
+\path[<-] (3) edge [bend left] node [above] {p} (4);
+\path[<-] (4) edge [bend left] node [above] {p} (5);
+\path (1) edge [in=190,out=140,loop] node [above] {p} (1);
+  \end{tikzpicture}
+  
+\ex first($x) \defeq$ p($x) \approx x$
+\end{exe}
+
+\noindent The string in (\ref{string}) is thus defined over a signature
+that consists of the predecessor function and the unary relation that
+labels elements with letters of the alphabet: \{p,
+P\(_{\sigma\in\Sigma}\)\}, \(\Sigma\) = \{a, b, c\}. The predecessor
+function can also be used to define the order between elements on a tier
+in autosegmental representations.
+
+\subsection{Association Relation}\label{association-relation}
+
+In addition to ordering between elements on a tier, Chandlee and Jardine
+(\protect\hyperlink{ref-chandleejardineaisl}{2019}) introduced the
+binary association relation \(\mathcal{A}(x, y)\) between elements on
+different tiers. For ARs of tone, \(x\) is evaluated as an element on a
+tonal tier and \(y\) as an element on the TBU tier. In order to use this
+relation for multi-tiered ARs of vowel harmony, a separate association
+relation must be defined between the vowel tier and each feature tier.
+
+\begin{exe}
+\ex $\mathcal{A}_F(x, y)$
+\ex $\mathcal{A}_G(x, y)$
+\end{exe}
+
+\section{Unbounded Spreading}\label{unbounded-spreading}
+
+\subsection{Blocking}\label{blocking}
+
+\section{Association Function}\label{association-function}
+
+\subsection{Blocking}\label{blocking-1}
+
+\subsection{Transparency}\label{transparency}
+
+\subsubsection{The No Crossing
+Constraint}\label{the-no-crossing-constraint}
+
+\newpage
+
+\section{References}\label{references}
+
+\begingroup
+\setlength{\parindent}{-0.5in} \setlength{\leftskip}{0.5in}
+
+\hypertarget{refs}{}
+\hypertarget{ref-archangelipulleyblank1994}{}
+Archangeli, D., \& Pulleyblank, D. (1994). \emph{Grounded phonology}
+(Vol. 25). MIT Press.
+
+\hypertarget{ref-chandlee2014}{}
+Chandlee, J. (2014). \emph{Strictly local phonological processes}
+(PhD thesis). University of Delaware.
+
+\hypertarget{ref-chandleeheinz2018}{}
+Chandlee, J., \& Heinz, J. (2018). Strict locality and phonological
+maps. \emph{Linguistic Inquiry}, \emph{49}(1), 23--60.
+
+\hypertarget{ref-chandleejardineaisl}{}
+Chandlee, J., \& Jardine, A. (2019). Autosegmental input strictly local
+functions. In \emph{Transactions of the association for computational
+linguistics} (Vol. 7, pp. 157--168). MIT Press.
+
+\hypertarget{ref-Clements1976}{}
+Clements, G. (1976). Vowel harmony in non-linear generative phonology:
+An autosegmental model. Bloomington, Indiana University Linguistics
+Club.
+
+\hypertarget{ref-Goldsmith1976}{}
+Goldsmith, J. (1976). \emph{Autosegmental phonology} (PhD thesis).
+Massachusetts Institute of Technology.
+
+\hypertarget{ref-hayes1990}{}
+Hayes, B. (1990). Diphthongization and coindexing. \emph{Phonology},
+\emph{7}(1), 31--71.
+
+\hypertarget{ref-jardineheinz2015}{}
+Jardine, A., \& Heinz, J. (2015). A concatenation operation to derive
+autosegmental graphs. In \emph{Proceedings of the 14th annual meeting on
+the mathematics of language (mol 2015)} (pp. 139--151). Chicago, USA:
+Association for Computational Linguistics.
+
+\hypertarget{ref-leben1973}{}
+Leben, W. (1973). \emph{Suprasegmental phonology} (PhD thesis).
+Massachusetts Institute of Technology.
+
+\hypertarget{ref-odden1994}{}
+Odden, D. (1994). Adjacency parameters in phonology. \emph{Language},
+\emph{70}(2), 289--330.
+
+\hypertarget{ref-ringenvago1998}{}
+Ringen, C., \& Vago, R. (1998). Hungarian vowel harmony in optimality.
+\emph{Phonology}, \emph{15}, 393--416.
+
+\hypertarget{ref-sagey1986}{}
+Sagey, E. (1986). \emph{The representation of features and relations in
+non-linear phonology} (PhD thesis). Massachusetts Institute of
+Technology.
+
+\endgroup
+
+
+\end{document}

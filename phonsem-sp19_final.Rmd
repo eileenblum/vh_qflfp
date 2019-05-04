@@ -1,0 +1,238 @@
+---
+title             : "Vowel harmony with QFLFP"
+shorttitle        : "VHQFLFP"
+
+author: 
+  - name          : "Eileen Blum"
+    affiliation   : "1"
+    corresponding : yes    # Define only one corresponding author
+    address       : "18 Seminary Place, New Brunswick, NJ 08901"
+    email         : "eileen.blum@rutgers.edu"
+
+affiliation:
+  - id            : "1"
+    institution   : "Rutgers University"
+
+authornote: |
+  Eileen Blum is a graduate student in the Department of Linguistics at Rutgers University.
+
+keywords          : "keywords"
+wordcount         : "X"
+
+bibliography      : ["r-references.bib"]
+
+figsintext        : yes
+figurelist        : no
+tablelist         : no
+footnotelist      : no
+lineno            : no
+mask              : no
+numbersections    : true
+link-citations    : true
+
+class             : "doc"
+output            : papaja::apa6_pdf
+indent            : true
+header-includes:
+  - \usepackage{tipa}
+  - \usepackage{gb4e}
+  - \noautomath
+  - \usepackage{tikz}
+  - \usetikzlibrary{matrix}
+  - \tikzset{marked/.style={draw=none, fill=none}}
+  - \usetikzlibrary{topaths}
+  - \usepackage{mathptmx}
+  - \usepackage{moresize}
+  - \setlength{\parindent}{2em}
+  - \def\defeq{\mathrel{\buildrel \mbox{\footnotesize def} \over =}}
+---
+
+```{r load_packages, include = FALSE}
+library("papaja")
+```
+
+# Introduction
+
+# Multi-tiered ARs
+
+<!-- bottlebrush --> This paper investigates the utility of Quantifier-free Least Fixed Point logic (QFLFP) for describing vowel harmony transformations over multi-tiered autosegmental representations (ARs). The multi-tiered ARs in this paper utilize a version of @hayes1990's bottlebrush theory of vowel feature representations such that each feature is represented on a separate tier. Assuming binary vowel features means that each feature tier includes both the + and - values of a particular feature. Associations connect the segmental and feature tiers such that each vowel is directly associated to an element on multiple feature tiers; thus "the CV tier...resembles the spine of a bottlebrush with features branching off"[@hayes1990]. The ARs used throughout this paper abstract away from consonants and thus the "spine of the bottlebrush"[@hayes1990] only includes vowels because vowel harmony is assumed to affect only vowel features.
+
+<!-- obey OCP, NCC --> Much work with ARs includes assumptions about (im)possible autosegmental structures: the Obligatory Contour Principle (OCP)[@leben1973] and the No Crossing Constraint (NCC) [@Goldsmith1976; @sagey1986]. The investigation into logical descriptions of vowel harmony transformations carried out here will provide insights into the necessity of these two constraints on both input (underlying) and output (surface) structures. Examples of structures that violate each of these constraints are shown in (\ref{ncc.ex})-(\ref{ocp.ex}) below. 
+
+\begin{exe}
+\ex \label{ncc.ex} Violates NCC
+  \begin{tikzpicture}[baseline=(current bounding box.north)]
+  \matrix [matrix of nodes, row sep=2.5ex, column sep=2.25ex, nodes={text height=1em, text depth=0.5em}] 
+  {
+* & |(a)| +ATR & |(b)| -ATR \\
+  & |(c)| V    & |(d)| V \\
+  & |(e)| -low &  \\
+  };
+  \draw (a.south) -- (d.north);
+  \draw (b.south) -- (c.north);
+  \draw[thick,black,->] (a) -- (b);
+  \draw[thick,black,->] (c) -- (d);
+  \draw foreach \x in {c, d} {(\x.south) -- (e.north)};
+  \end{tikzpicture}
+\end{exe}
+
+\begin{exe}
+\ex \label{ocp.ex} Violates OCP
+  \begin{tikzpicture}[baseline=(current bounding box.north)]
+  \matrix [matrix of nodes, row sep=2.5ex, column sep=2.25ex, nodes={text height=1em, text depth=0.5em}] 
+  {
+* & |(a)| -ATR & |(b)| -ATR \\
+  & |(c)| V    & |(d)| V \\
+  & |(e)| -low & |(f)| -low \\
+  };
+  \draw (a.south) -- (c.north);
+  \draw (b.south) -- (d.north);
+  \draw (c.south) -- (e.north);
+  \draw (d.south) -- (f.north);
+  \draw[thick,black,->] (a) -- (b);
+  \draw[thick,black,->] (c) -- (d);
+  \draw[thick,black,->] (e) -- (f);
+  \end{tikzpicture}
+\end{exe}
+
+The NCC states that association lines between the segmental tier and a feature tier never cross. @odden1994 adds that the NCC can only evaluate the association between the segmental and one featural tier at a time. The representation in (\ref{akan.ex3}) violates the NCC because +ATR precedes -ATR, but is associated to a vowel that is preceded by a vowel associated to -ATR; this configuration creates visually crossed association lines.
+
+the OCP stipulates that successive featural elements must be distinct. The representation in (\ref{akan.ex4}) violates the OCP because on both the ATR and low feature tiers there are two identical successive features, -ATR and -low respectively. The OCP in conjunction with FS results in representations where multiple vowels are associated to a single feature rather than having multiple successive iterations of the same feature each associated to a single vowel. An example representation of an Akan word that satisfies all of the AR properties discussed here is shown in (\ref{akan.ex}).
+  
+  Both the NCC and the OCP have also been derived via a concatenation operation ($\circ$) that merges autosegmental "graph primitives"[@jardineheinz2015 p.1]. An autosegmental graph primitive consists of an element on the segmental tier, the elements on each feature tier and the associations between the featural and segmental tiers. The concatenation operation combines a finite set of adjacent graph primitives to generate a fully specified AR. For example, the AR in (\ref{akan.ex}) is derived from the set of graph primitives in (\ref{concat.ex}). Each primitive in (\ref{concat.ex}) is concatenated with a single adjacent primitive. If two adjacent primitives share an identical feature those two features are merged into one feature with two associations, as in (\ref{akan.ex}). The merging of identical adjacent features essentially prevents surface ARs from having multiple iterations of a feature and crossed associations, thus satisfying both the OCP and the NCC. However, if two segmental elements are associated to the exact same feature and a different element intervenes then both iterations of that feature will occur in the surface AR because only adjacent primitive elements are concatenated and can thus be merged. This dissertation will show that an intervening element can be a vowel associated to the same feature with a different value or a domain boundary. It will further show that a domain boundary primitive may include that boundary on both segmental and feature tiers.
+  
+\begin{exe}
+\ex \label{concat.ex} Concatenation of adjacent autosegmental graph primitives \\
+  \begin{tikzpicture}[baseline=(current bounding box.north)]
+  \matrix [matrix of nodes, row sep=2.5ex, column sep=2.25ex, nodes={text height=1em, text depth=0.5em}] 
+  {
+  &                                     & |(a)| -ATR &                                     & |(b)| -ATR \\
+t & \node {}; \draw(0, 0) circle (3pt); & |(1)| i    & \node {}; \draw(0, 0) circle (3pt); & |(2)| e \\
+  &                                     & |(c)| -low &                                     & |(d)| -low \\
+  };
+  \draw (a.south) -- (1.north);
+  \draw (1.south) -- (c.north);
+  \draw (b.south) -- (2.north);
+  \draw (2.south) -- (d.north);
+  \end{tikzpicture}
+\end{exe}
+
+This paper will also provide insights into the necessity of the assumption that surface ARs obey Full Specification (FS)[@Clements1976], which is held in my current ongoing work with multi-tiered ARs of vowel harmony. An example of a structure that violates FS is in (\ref{fs.ex}).
+
+\begin{exe}
+\ex \label{akan.ex2} Violates FS
+  \begin{tikzpicture}[baseline=(current bounding box.north)]
+  \matrix [matrix of nodes, row sep=2.5ex, column sep=2.25ex, nodes={text height=1em, text depth=0.5em}] 
+  {
+* & |(b)| -ATR & \\
+  & |(d)| V    & |(e)| V \\
+  & |(f)| -low & \\
+  };
+  \draw (b.south) -- (d.north);
+  \draw (d.south) -- (f.north);
+  \draw[thick,black,->] (d) -- (e);
+  \draw foreach \x in {d, e} {(\x.south) -- (f.north)};
+  \end{tikzpicture}
+\end{exe}
+
+FS means that each featural element must be associated to at least one vowel on the segmental tier and each vowel on the segmental tier must be associated to at least one element on each featural tier. FS crucially allows vowels to be associated to multiple featural tiers as is necessary for each vowel feature to occupy its own tier. The hypothetical representation in (\ref{akan.ex2}) straighforwardly violates FS because there is a vowel that is not associated to any feature on the ATR tier. While both vowels are associated to a single -low feature, the second vowel is not associated to any feature on the ATR tier. Since vowel harmony patterns will be analyzed, it will be assumed that consonants cannot be associated to vowel features and that FS and vowel harmony in general ignore consonantal elements on the segmental tier.
+
+A notable effect of FS along with the NCC is that they prevent what have been called gapped structures [@archangelipulleyblank1994; @ringenvago1998]. A gapped structure is one in which a feature appears to have skipped over a vowel that it could potentially be associated to. FS would prevent gapped structures in which the "skipped" vowel is not associated to anything on that particular feature's tier. The NCC would prevent gapped structures in which the surrounding two vowels are associated to a single feature and the intervening "skipped" vowel is associated to a different feature on the same tier. 
+
+# QF Logical Transductions
+
+Phonological transformations can be described using logical transductions, which characterize functions. The expressivity of a logic determines the class of functions that it describes. For example, previous work has shown that Input Strictly Local (ISL) functions are describable with quantifier-free (QF) logical transductions [@chandlee2014; @chandleeheinz2018]. QF logic is precisely first-order (FO) logic without quanitfiers ($\exists$ or $\forall$). In this logic, a term picks out a single element in a model's domain, so a variable is considered a term and a function applied to a term is also a term. 
+
+\begin{exe}
+\ex Terms: \label{terms}
+  \begin{xlist}
+  \ex a variable $x, y, z, ...$
+  \ex a function $f$ applied to a term $t: f(t)$
+  \end{xlist}
+\end{exe}
+
+QF transductions define an output string in terms of the elements and relations of the input string using atomic formulas that take terms.
+
+\begin{exe}
+\ex QF atomic formulas\label{atom}
+  \begin{xlist}
+  \ex a unary relation P(t)
+  \ex a binary relation R(t$_1$, t$_2$) and
+  \ex t$_1 \approx$ t$_2$
+  \end{xlist}
+\end{exe}
+
+\noindent For an input alphabet $\Sigma$ and an output alphabet $\Gamma$ a logical transduction consists of a copyset C, a set of unary output condition predicates, and set of unary predicates to label the output elements. The copyset contains a copy of each input element, which is given a label via the unary predicates P$^C_{\gamma}(x)$. The unary output condition predicates define the conditions under which the copy of an input element is present in the output. Lastly, QF transductions are order-preserving as a result of the definition below.
+
+\begin{exe}
+\ex\label{order-pres} Let $<$ (and$\leq$) be the transitive (and reflexive) closure of p; build p$'$ such that its transitive closure is $<'$, defined as follows: for all $c, e\in C$
+\end{exe}
+\hspace{1.85in}
+$\begin{array}{ccc} d^c_1 <' d^e_2 \defeq & x<y & if c\geq e \\
+                                          & x\leq y & if c<e \end{array}$
+\vspace{0.2in}
+
+## Order over strings
+
+If we change our binary ordering relation between elements in a string to a function that applies to an element then we can represent the successor relation ($\lhd$) using a predecessor function (p($x$)). Thus the ordering between elements is characterized by recursively picking out elements and their predecessors. For example, for the string in (\ref{string}) the predecessor of 5 is 4 and so p(5) = 4, p(p(5)) = 3, etc. In order to make predecessor a total function, the first element is defined as that which is its own predecessor.
+
+\begin{exe}
+\ex Ordering in a string with the predecessor function \label{string}\\
+  \begin{tikzpicture}
+\node [circle,draw] (1) at (0,0) {a};
+\node [circle,draw] (2) at (1,0) {b};
+\node [circle,draw] (3) at (2,0) {b};
+\node [circle,draw] (4) at (3,0) {a};
+\node [circle,draw] (5) at (4,0) {c};
+\draw (1) node [label=below left:1] {};
+\draw (2) node [label=below left:2] {};
+\draw (3) node [label=below left:3] {};
+\draw (4) node [label=below left:4] {};
+\draw (5) node [label=below left:5] {};
+\path[<-] (1) edge [bend left] node [above] {p} (2);
+\path[<-] (2) edge [bend left] node [above] {p} (3);
+\path[<-] (3) edge [bend left] node [above] {p} (4);
+\path[<-] (4) edge [bend left] node [above] {p} (5);
+\path (1) edge [in=190,out=140,loop] node [above] {p} (1);
+  \end{tikzpicture}
+  
+\ex first($x) \defeq$ p($x) \approx x$
+\end{exe}
+
+\noindent The string in (\ref{string}) is thus defined over a signature that consists of the predecessor function and the unary relation that labels elements with letters of the alphabet: {p, P$_{\sigma\in\Sigma}$}, $\Sigma$ = {a, b, c}. The predecessor function can also be used to define the order between elements on a tier in autosegmental representations. 
+
+## Association Relation
+
+In addition to ordering between elements on a tier, @chandleejardineaisl introduced the binary association relation $\mathcal{A}(x, y)$ between elements on different tiers. For ARs of tone, $x$ is evaluated as an element on a tonal tier and $y$ as an element on the TBU tier. In order to use this relation for multi-tiered ARs of vowel harmony, a separate association relation must be defined between the vowel tier and each feature tier.
+
+\begin{exe}
+\ex $\mathcal{A}_F(x, y)$
+\ex $\mathcal{A}_G(x, y)$
+\end{exe}
+
+
+# Unbounded Spreading
+
+## Blocking
+
+# Association Function
+
+## Blocking
+
+## Transparency
+
+### The No Crossing Constraint
+
+\newpage
+
+# References
+```{r create_r-references}
+r_refs(file = "r-references.bib")
+```
+
+\begingroup
+\setlength{\parindent}{-0.5in}
+\setlength{\leftskip}{0.5in}
+
+<div id = "refs"></div>
+\endgroup
