@@ -43,6 +43,7 @@ header-includes:
   - \usetikzlibrary{topaths}
   - \usepackage{mathptmx}
   - \usepackage{moresize}
+  - \usepackage{multicol}
   - \setlength{\parindent}{2em}
   - \def\defeq{\mathrel{\buildrel \mbox{\footnotesize def} \over =}}
 ---
@@ -53,14 +54,159 @@ library("papaja")
 
 # Introduction
 
-# Multi-tiered ARs
+Phonological transformations can be characterized as mathematical functions, which map an underlying representation to an attested surface form. Such transformations can be described using logical transductions and the expressivity of a logic determines the class of functions that it describes. For example, previous work has shown that Input Strictly Local (ISL) string functions are describable with quantifier-free (QF) first order (FO) logical transductions [@chandlee2014; @chandleeheinz2018]. In addition, @chandleejardine2019 showed that some tone processes are QF definable over two-tiered autosegmental representations (ARs), which make up the Autosegmental Input Strictly Local (AISL) function class. However, @chandleejardine2019 claimed that unbounded spreading is not QF definable and thus not AISL. In this paper I will demonstrate a method for describing vowel harmony transformations of both unbounded spreading and blocking patterns over multi-tiered ARs using quantifier-free least fixed point (QFLFP) logical transductions. This paper will illustrate that in order to describe both unbounded spreading and blocking with QFLFP, the autosegmental association relation must be translated into a function.
 
-<!-- bottlebrush --> This paper investigates the utility of Quantifier-free Least Fixed Point logic (QFLFP) for describing vowel harmony transformations over multi-tiered autosegmental representations (ARs). The multi-tiered ARs in this paper utilize a version of @hayes1990's bottlebrush theory of vowel feature representations such that each feature is represented on a separate tier. Assuming binary vowel features means that each feature tier includes both the + and - values of a particular feature. Associations connect the segmental and feature tiers such that each vowel is directly associated to an element on multiple feature tiers; thus "the CV tier...resembles the spine of a bottlebrush with features branching off"[@hayes1990]. The ARs used throughout this paper abstract away from consonants and thus the "spine of the bottlebrush"[@hayes1990] only includes vowels because vowel harmony is assumed to affect only vowel features.
+# QF Logical Transductions
 
-<!-- obey OCP, NCC --> Much work with ARs includes assumptions about (im)possible autosegmental structures: the Obligatory Contour Principle (OCP)[@leben1973] and the No Crossing Constraint (NCC) [@Goldsmith1976; @sagey1986]. The investigation into logical descriptions of vowel harmony transformations carried out here will provide insights into the necessity of these two constraints on both input (underlying) and output (surface) structures. Examples of structures that violate each of these constraints are shown in (\ref{ncc.ex})-(\ref{ocp.ex}) below. 
+QF logic is precisely first-order (FO) logic without quanitfiers ($\exists$ or $\forall$). In this logic, a term picks out a single element in a model's domain, so a variable is considered a term and a function applied to a term is also a term. 
 
 \begin{exe}
-\ex \label{ncc.ex} Violates NCC
+\ex Terms $(t)$: \label{terms}
+  \begin{xlist}
+  \ex a variable $x, y, z, ...$
+  \ex a function $f$ applied to a term: $f(t)$
+  \end{xlist}
+\end{exe}
+
+QF string transductions define an output string in terms of the elements and relations of the input string using atomic formulas that take terms.
+
+\begin{exe}
+\ex QF atomic formulas\label{atom}
+  \begin{xlist}
+  \ex a unary relation: P$(t)$
+  \ex a binary relation: R$(t_1, t_2)$ 
+  \ex a strict equivalence: $t_1 \approx t_2$
+  \end{xlist}
+\end{exe}
+
+\noindent For an input alphabet $\Sigma$ and an output alphabet $\Gamma$ a logical transduction consists of a copyset C, a set of unary output condition predicates, and set of unary predicates to label the output elements. The copyset contains a copy of each input element, which is given a label via the unary predicates P$^C_{\gamma}(x)$. The unary output condition predicates define the conditions under which the copy of an input element is present in the output. Lastly, QF transductions are order-preserving, as defined in (\ref{order.pres}).
+
+\begin{exe}
+\ex\label{order.pres} Let $<$ (and$\leq$) be the transitive (and reflexive) closure of p; build p$'$ such that its transitive closure is $<'$, defined as follows: for all $c, e\in C$
+\end{exe}
+\hspace{1.85in}
+$\begin{array}{ccc} d^c_1 <' d^e_2 \defeq & x<y & if c\geq e \\
+                                          & x\leq y & if c<e \end{array}$
+\vspace{0.2in}
+
+The following sections will introduce the functions and relations needed to describe a vowel harmony transformation over multi-tiered autosegmental representations: order between elements on a tier and association between elements on different tiers.
+
+## Ordering with QF
+
+In order to ensure that QF formulas use terms, which pick out an element in the model, the binary ordering relation used in previous work with ARs is changed to a function. Rather than represent ordering between elements in a string with the binary successor relation ($\lhd$) QF formulas utilize a predecessor function (p($x$)) or a successor function (s($x$)). For example, for the string in (\ref{string}) the predecessor of 5 is 4 and so p(5) = 4, p(p(5)) = 3, etc. In addition, the successor of 1 is 2, so s(1) = 2, s(s(1)) = 3, etc. Predecessor and successor must also be total functions, which means they are defined for every element in the domain so the predicate in (\ref{string}a) defines the first element as that which is its own predecessor and the predicate in (\ref{string}b) defines the last element as its own successor.
+
+\begin{exe}
+\ex $\langle D; p, s, P_a, P_b, P_c\rangle$ \label{string}\\
+\begin{tikzpicture}
+\node [circle,draw] (1) at (0,0) {a};
+\node [circle,draw] (2) at (1,0) {b};
+\node [circle,draw] (3) at (2,0) {b};
+\node [circle,draw] (4) at (3,0) {a};
+\node [circle,draw] (5) at (4,0) {c};
+\draw (1) node [label=below left:1] {};
+\draw (2) node [label=below:2] {};
+\draw (3) node [label=below:3] {};
+\draw (4) node [label=below:4] {};
+\draw (5) node [label=below right:5] {};
+\path[<-] (1) edge [bend left] node [above] {p} (2);
+\path[<-] (2) edge [bend left] node [above] {p} (3);
+\path[<-] (3) edge [bend left] node [above] {p} (4);
+\path[<-] (4) edge [bend left] node [above] {p} (5);
+\path (1) edge [in=190,out=140,loop] node [above] {p} (1);
+\path[->] (1) edge [bend right] node [below] {s} (2);
+\path[->] (2) edge [bend right] node [below] {s} (3);
+\path[->] (3) edge [bend right] node [below] {s} (4);
+\path[->] (4) edge [bend right] node [below] {s} (5);
+\path (5) edge [in=-10,out=40,loop] node [above] {s} (5);
+\end{tikzpicture}
+
+\begin{xlist}
+\ex first($x) \defeq$ p($x) \approx x$
+\ex last($x) \defeq$ s($x) \approx x$
+\end{xlist}
+\end{exe}
+
+\noindent The string in (\ref{string}) is defined over a signature that consists of the predecessor and successor functions and the unary relation that labels elements with letters of the alphabet: {p, s, P$_{\sigma\in\Sigma}$}, $\Sigma$ = {a, b, c}. 
+
+ARs consist of more than one string of disjoint sets of elements and these strings are connected by association. So each tier in a multi-tiered AR is essentially a string of elements with labels of a certain type. For example, in the ARs used here the vowel tier consists of elements labeled with P$_V(x)$ to represent vowels, while each feature tier consists of elements labeled with the + or - value of a particular feature. The predecessor and successor functions are used to define the order between elements on each tier. The following subsection discusses the association relation between tiers.
+
+## Association relation
+
+In addition to ordering between elements on a tier, @chandleejardineaisl introduced an antisymmetric binary association relation $\mathcal{A}(x, y)$ to describe autosegmental associations between elements on different tiers. Association was introduced as a binary relation due to the possible configurations of tone-TBU associations. In tone languages, it is possible for a single tone to be associated to multiple TBUs, but in the case of contour tones it is also possible for a single TBU to be associated to more than one tone. The possibility for multiple association in either direction rules out the possibility of representing tone-TBU associations as a function, which must pick out a single element when applied to another element. In principle the binary association relation could be defined symmetrically, but I follow @chandleejardineaisl in defining it antisymmetrically. Thus for ARs of tone, $x$ is always evaluated as an element on a tonal tier and $y$ as an element on a tier of tone-bearing units (TBUs). 
+
+This same association relation can be used for multi-tiered ARs of vowel harmony patterns. In order to do so, a separate association relation must be defined between the vowel tier and each feature tier. For example, to describe the transformation in (\ref{assocrel.ex}) the association between a vowel and a feature on the high tier must be defined separately from the association between a vowel and a feature on the back tier. Both associations are defined for the output in terms of the input.
+
+\begin{exe}
+\ex Separate association relations for each feature tier\label{assocrel.ex}\\
+\begin{multicols}{2}
+\begin{tikzpicture}[baseline=(current bounding box.north)]
+ \matrix [matrix of nodes,
+          row sep=1em, 
+          nodes={text height=1em, text depth=0.5em}] {
+|(h)| + high &           & |(3)| +high\\
+|(v)| V      & $\mapsto$ & |(1)| V \\
+|(b)| - back &           & |(4)| +back\\
+  };
+ \draw (h.south) -- (v.north);
+ \draw (v.south) -- (b.north);
+ \draw (3.south) -- (1.north);
+ \draw (1.south) -- (4.north);
+\end{tikzpicture}
+
+\columnbreak
+\begin{xlist}
+  \ex $\mathcal{A}_{high}'(x, y) \defeq \mathcal{A}_{high}(x, y)$
+  \ex $\mathcal{A}_{back}'(x, y) \defeq \mathcal{A}_{back}(x, y)$
+\end{xlist}
+\end{multicols}
+\end{exe}
+
+\noindent Since both output featural associations are also present in the input, the QF definitions of both the input and output associations are identical. The output association relation is denoted with $'$. 
+
+This section established the mathematical definitions that will be used to describe vowel harmony transformations as QF logical transductions. It introduced QF logic as well as the ordering functions and binary association relation needed to define multi-tiered ARs using QF logic. However, on its own QF is not sufficient to describe the vowel harmony transformations discussed in this paper. The definitions presented here along with the discussion in the next section provide the basis for understanding the logical descriptions of both unbounded spreading and blocking transformations using QFLFP discussed in sections 4 and 5. 
+
+# Representational Assumptions
+
+<!-- bottlebrush --> This paper explores the use of Quantifier-free Least Fixed Point logic (QFLFP) for describing vowel harmony transformations over multi-tiered autosegmental representations (ARs). Autosegmental representations (ARs) of tonal patterns generally consist of two tiers: the TBU and segmental tiers [@Goldsmith1976; @jardinediss; -@jardinelocaltone], but vowel harmony patterns refer to subsegmental features, which will be represented using multiple featural tiers. The multi-tiered ARs in this paper utilize a version of @hayes1990's bottlebrush theory of vowel feature representations such that each feature is represented on a separate tier. Assuming binary vowel features means that each feature tier includes both the + and - values of a particular feature. Associations connect the segmental and feature tiers such that each vowel is directly associated to an element on multiple feature tiers. The ARs used here abstract away from consonants under the assumption that they do not participate in vowel harmony and thus are not associated to vowel features; the "spine of the bottlebrush"[@hayes1990] only includes vowels. Association relations are represented by straight lines that connect elements (segments and features) on different tiers. Where a tier consists of multiple elements, the successor ordering relation between elements on that tier is represented with horizontal arrows. An example is shown in (\ref{ar.ex}).
+
+\begin{exe}
+\ex Multi-tiered AR \label{ar.ex}\\
+\begin{tikzpicture}[baseline=(current bounding box.north)]
+  \matrix [matrix of nodes, ampersand replacement=\&, row sep=1.25ex, column sep=2.25ex, nodes={text height=0.75em, text depth=0.25em}] 
+  {
+               \& |(b)| $\pm$back \\
+|(a)| $\pm$ATR \&                 \\
+|(1)| V        \&                 \\
+|(l)| $\pm$low \&                 \\
+               \& |(r)| $\pm$round \\
+  };
+  \draw (a.south) -- (1.north);
+  \draw (b.south) -- (1.north);
+  \draw (1.south) -- (l.north);
+  \draw (1.south) -- (r.north);
+\end{tikzpicture}
+\end{exe}
+
+<!-- obey OCP?, NCC? -->   Developing logical descriptions of vowel harmony transformations provides insights into the necessity of certain restrictions on both input (underlying) and output (surface) structures. Use of ARs requires discussion of at least some of the basic representational assumptions that will be investigated in this paper. This paper assumes *Full Specification* (FS)[@Clements1976] for surface, but not underlying representations. The *Obligatory Contour Principle* (OCP)[@leben1973] and the *No Crossing Constraint* (NCC) [@Goldsmith1976; @sagey1986] are assumed for surface representations of spreading. Examples of structures that violate each of these constraints are shown in (\ref{fs.ex})-(\ref{ocp.ex}) below. 
+
+\begin{exe}
+\ex \label{fs.ex} Violates FS\\
+  \begin{tikzpicture}[baseline=(current bounding box.north)]
+  \matrix [matrix of nodes, row sep=2.5ex, column sep=2.25ex, nodes={text height=1em, text depth=0.5em}] 
+  {
+* & |(b)| -ATR & \\
+  & |(d)| V    & |(e)| V \\
+  & |(f)| -low & \\
+  };
+  \draw (b.south) -- (d.north);
+  \draw (d.south) -- (f.north);
+  \draw[thick,black,->] (d) -- (e);
+  \draw foreach \x in {d, e} {(\x.south) -- (f.north)};
+  \end{tikzpicture}
+\end{exe}
+
+\begin{exe}
+\ex \label{ncc.ex} Violates NCC\\
   \begin{tikzpicture}[baseline=(current bounding box.north)]
   \matrix [matrix of nodes, row sep=2.5ex, column sep=2.25ex, nodes={text height=1em, text depth=0.5em}] 
   {
@@ -77,7 +223,7 @@ library("papaja")
 \end{exe}
 
 \begin{exe}
-\ex \label{ocp.ex} Violates OCP
+\ex \label{ocp.ex} Violates OCP\\
   \begin{tikzpicture}[baseline=(current bounding box.north)]
   \matrix [matrix of nodes, row sep=2.5ex, column sep=2.25ex, nodes={text height=1em, text depth=0.5em}] 
   {
@@ -95,11 +241,15 @@ library("papaja")
   \end{tikzpicture}
 \end{exe}
 
-The NCC states that association lines between the segmental tier and a feature tier never cross. @odden1994 adds that the NCC can only evaluate the association between the segmental and one featural tier at a time. The representation in (\ref{akan.ex3}) violates the NCC because +ATR precedes -ATR, but is associated to a vowel that is preceded by a vowel associated to -ATR; this configuration creates visually crossed association lines.
+First, assuming FS for surface structures means that each output element on a feature tier must be associated to at least one output element on the vowel tier and each output element on the vowel tier must be associated to at least one output element on each featural tier. FS crucially allows vowels to be associated to multiple featural tiers as is necessary for each vowel feature to occupy its own tier. The hypothetical AR in (\ref{fs.ex}) straighforwardly violates FS because there is a vowel that is not associated to any feature on the ATR tier. Since this paper examines vowel harmony patterns I assume that consonants can not to be associated to vowel features and so FS and vowel harmony in general ignore consonants. 
 
-the OCP stipulates that successive featural elements must be distinct. The representation in (\ref{akan.ex4}) violates the OCP because on both the ATR and low feature tiers there are two identical successive features, -ATR and -low respectively. The OCP in conjunction with FS results in representations where multiple vowels are associated to a single feature rather than having multiple successive iterations of the same feature each associated to a single vowel. An example representation of an Akan word that satisfies all of the AR properties discussed here is shown in (\ref{akan.ex}).
+Second, the NCC states that association lines between the segmental tier and a feature tier never cross. @odden1994 adds that the NCC can only evaluate the association between the vowel and one featural tier at a time. The representation in (\ref{ncc.ex}) violates the NCC because +ATR precedes -ATR, but is associated to a vowel that is preceded by a vowel associated to -ATR; this configuration creates visually crossed association lines. 
   
-  Both the NCC and the OCP have also been derived via a concatenation operation ($\circ$) that merges autosegmental "graph primitives"[@jardineheinz2015 p.1]. An autosegmental graph primitive consists of an element on the segmental tier, the elements on each feature tier and the associations between the featural and segmental tiers. The concatenation operation combines a finite set of adjacent graph primitives to generate a fully specified AR. For example, the AR in (\ref{akan.ex}) is derived from the set of graph primitives in (\ref{concat.ex}). Each primitive in (\ref{concat.ex}) is concatenated with a single adjacent primitive. If two adjacent primitives share an identical feature those two features are merged into one feature with two associations, as in (\ref{akan.ex}). The merging of identical adjacent features essentially prevents surface ARs from having multiple iterations of a feature and crossed associations, thus satisfying both the OCP and the NCC. However, if two segmental elements are associated to the exact same feature and a different element intervenes then both iterations of that feature will occur in the surface AR because only adjacent primitive elements are concatenated and can thus be merged. This dissertation will show that an intervening element can be a vowel associated to the same feature with a different value or a domain boundary. It will further show that a domain boundary primitive may include that boundary on both segmental and feature tiers.
+  A notable effect of FS along with the NCC on surface representations is that they prevent what have been called gapped structures [@archangelipulleyblank1994; @ringenvago1998]. A gapped structure is one in which a feature appears to have skipped over a vowel that it could potentially be associated to. FS would prevent gapped structures in which the "skipped" vowel is not associated to anything on that particular feature's tier. The NCC would prevent gapped structures in which the surrounding two vowels are associated to a single feature and the intervening "skipped" vowel is associated to a different feature on the same tier. 
+  
+  Lastly, the OCP stipulates that successive featural elements must be distinct. The representation in (\ref{ocp.ex}) violates the OCP because on both the ATR and low feature tiers there are two identical successive features, -ATR and -low respectively. The OCP in conjunction with FS results in representations in which multiple vowels are associated to a single feature rather than having multiple successive iterations of the same feature value on a tier each associated to a single vowel. An example representation of an Akan word that satisfies all of the AR properties discussed here is shown in (\ref{akan.ex}).
+  
+  On the surface, both the NCC and the OCP have also been derived via a concatenation operation ($\circ$) that merges autosegmental "graph primitives"[@jardineheinz2015 p.1]. An autosegmental graph primitive consists of an element on the vowel tier, the elements on each feature tier and the associations between the feature and vowel tiers. The concatenation operation combines a finite set of adjacent graph primitives to generate a fully specified AR. For example, the AR in (\ref{akan.ex}) is derived from the set of graph primitives in (\ref{concat.ex}). Each primitive in (\ref{concat.ex}) is concatenated with a single adjacent primitive. If two adjacent primitives share an identical feature those two features are merged into one feature with two associations, as in (\ref{akan.ex}). The merging of identical adjacent features essentially prevents surface ARs from having multiple iterations of a feature and crossed associations, thus satisfying both the OCP and the NCC. However, if two segmental elements are associated to the exact same feature and a different element intervenes then both iterations of that feature will occur in the surface AR because only adjacent primitive elements are concatenated and can thus be merged. An intervening element can be a vowel associated to the same feature with a different value.
   
 \begin{exe}
 \ex \label{concat.ex} Concatenation of adjacent autosegmental graph primitives \\
@@ -117,111 +267,316 @@ t & \node {}; \draw(0, 0) circle (3pt); & |(1)| i    & \node {}; \draw(0, 0) cir
   \end{tikzpicture}
 \end{exe}
 
-This paper will also provide insights into the necessity of the assumption that surface ARs obey Full Specification (FS)[@Clements1976], which is held in my current ongoing work with multi-tiered ARs of vowel harmony. An example of a structure that violates FS is in (\ref{fs.ex}).
-
 \begin{exe}
-\ex \label{akan.ex2} Violates FS
+\ex \label{akan.ex} Surface AR satisfies FS, NCC, and OCP \\
   \begin{tikzpicture}[baseline=(current bounding box.north)]
   \matrix [matrix of nodes, row sep=2.5ex, column sep=2.25ex, nodes={text height=1em, text depth=0.5em}] 
   {
-* & |(b)| -ATR & \\
-  & |(d)| V    & |(e)| V \\
-  & |(f)| -low & \\
+  &            & |(b)| -ATR &         & &           & &            & |(b2)| -ATR & \\
+  & |(c)| t    & |(d)| i    & |(e)| e & & $\mapsto$ & & |(c2)| t   & |(d2)| i    & |(e2)| e \\
+  &            & |(f)| -low &         & &           & &            & |(f2)| -low & \\
   };
   \draw (b.south) -- (d.north);
-  \draw (d.south) -- (f.north);
-  \draw[thick,black,->] (d) -- (e);
   \draw foreach \x in {d, e} {(\x.south) -- (f.north)};
+  \draw[thick,black,->] (c) -- (d);
+  \draw[thick,black,->] (d) -- (e);
+  \draw foreach \x in {d2, e2} {(b2.south) -- (\x.north)};
+  \draw foreach \x in {d2, e2} {(\x.south) -- (f2.north)};
+  \draw[thick,black,->] (c2) -- (d2);
+  \draw[thick,black,->] (d2) -- (e2);
   \end{tikzpicture}
 \end{exe}
 
-FS means that each featural element must be associated to at least one vowel on the segmental tier and each vowel on the segmental tier must be associated to at least one element on each featural tier. FS crucially allows vowels to be associated to multiple featural tiers as is necessary for each vowel feature to occupy its own tier. The hypothetical representation in (\ref{akan.ex2}) straighforwardly violates FS because there is a vowel that is not associated to any feature on the ATR tier. While both vowels are associated to a single -low feature, the second vowel is not associated to any feature on the ATR tier. Since vowel harmony patterns will be analyzed, it will be assumed that consonants cannot be associated to vowel features and that FS and vowel harmony in general ignore consonantal elements on the segmental tier.
-
-A notable effect of FS along with the NCC is that they prevent what have been called gapped structures [@archangelipulleyblank1994; @ringenvago1998]. A gapped structure is one in which a feature appears to have skipped over a vowel that it could potentially be associated to. FS would prevent gapped structures in which the "skipped" vowel is not associated to anything on that particular feature's tier. The NCC would prevent gapped structures in which the surrounding two vowels are associated to a single feature and the intervening "skipped" vowel is associated to a different feature on the same tier. 
-
-# QF Logical Transductions
-
-Phonological transformations can be described using logical transductions, which characterize functions. The expressivity of a logic determines the class of functions that it describes. For example, previous work has shown that Input Strictly Local (ISL) functions are describable with quantifier-free (QF) logical transductions [@chandlee2014; @chandleeheinz2018]. QF logic is precisely first-order (FO) logic without quanitfiers ($\exists$ or $\forall$). In this logic, a term picks out a single element in a model's domain, so a variable is considered a term and a function applied to a term is also a term. 
-
-\begin{exe}
-\ex Terms: \label{terms}
-  \begin{xlist}
-  \ex a variable $x, y, z, ...$
-  \ex a function $f$ applied to a term $t: f(t)$
-  \end{xlist}
-\end{exe}
-
-QF transductions define an output string in terms of the elements and relations of the input string using atomic formulas that take terms.
-
-\begin{exe}
-\ex QF atomic formulas\label{atom}
-  \begin{xlist}
-  \ex a unary relation P(t)
-  \ex a binary relation R(t$_1$, t$_2$) and
-  \ex t$_1 \approx$ t$_2$
-  \end{xlist}
-\end{exe}
-
-\noindent For an input alphabet $\Sigma$ and an output alphabet $\Gamma$ a logical transduction consists of a copyset C, a set of unary output condition predicates, and set of unary predicates to label the output elements. The copyset contains a copy of each input element, which is given a label via the unary predicates P$^C_{\gamma}(x)$. The unary output condition predicates define the conditions under which the copy of an input element is present in the output. Lastly, QF transductions are order-preserving as a result of the definition below.
-
-\begin{exe}
-\ex\label{order-pres} Let $<$ (and$\leq$) be the transitive (and reflexive) closure of p; build p$'$ such that its transitive closure is $<'$, defined as follows: for all $c, e\in C$
-\end{exe}
-\hspace{1.85in}
-$\begin{array}{ccc} d^c_1 <' d^e_2 \defeq & x<y & if c\geq e \\
-                                          & x\leq y & if c<e \end{array}$
-\vspace{0.2in}
-
-## Order over strings
-
-If we change our binary ordering relation between elements in a string to a function that applies to an element then we can represent the successor relation ($\lhd$) using a predecessor function (p($x$)). Thus the ordering between elements is characterized by recursively picking out elements and their predecessors. For example, for the string in (\ref{string}) the predecessor of 5 is 4 and so p(5) = 4, p(p(5)) = 3, etc. In order to make predecessor a total function, the first element is defined as that which is its own predecessor.
-
-\begin{exe}
-\ex Ordering in a string with the predecessor function \label{string}\\
-  \begin{tikzpicture}
-\node [circle,draw] (1) at (0,0) {a};
-\node [circle,draw] (2) at (1,0) {b};
-\node [circle,draw] (3) at (2,0) {b};
-\node [circle,draw] (4) at (3,0) {a};
-\node [circle,draw] (5) at (4,0) {c};
-\draw (1) node [label=below left:1] {};
-\draw (2) node [label=below left:2] {};
-\draw (3) node [label=below left:3] {};
-\draw (4) node [label=below left:4] {};
-\draw (5) node [label=below left:5] {};
-\path[<-] (1) edge [bend left] node [above] {p} (2);
-\path[<-] (2) edge [bend left] node [above] {p} (3);
-\path[<-] (3) edge [bend left] node [above] {p} (4);
-\path[<-] (4) edge [bend left] node [above] {p} (5);
-\path (1) edge [in=190,out=140,loop] node [above] {p} (1);
-  \end{tikzpicture}
+  In the transformation in (\ref{akan.ex}), the initial consonant cannot be associated to a vowel feature in either the underlying AR (on the left) or the surface AR (on the right). While the consonant is ordered with respect to the vowels, FS does not require the consonant to be associated to any element on either feature tier. FS also does not apply to the underlying representation, in which the second vowel is not associated to any ATR feature. On the surface, *tie* satisfies FS because the ATR feature has spread so that each vowel is associated to a feature on each of the featural tiers and all features are associated to at least one vowel. Both the underlying and surface ARs of *tie* also satisfy both the NCC and the OCP because there is only one of each feature. The features are represented on separate tiers so association lines cannot cross and there is nothing else on those tiers that could violate the OCP.
   
-\ex first($x) \defeq$ p($x) \approx x$
-\end{exe}
+In this section I have outlined representational assumptions that will be utilized throughout this paper. These assumptions are adapted from the autosegmental literature and from my previous work with multi-tiered ARs of vowel harmony. The multi-tiered ARs used here assume a bottlebrush feature representation such that one tier consists of only vowels, which are each associated to features on different tiers. Each feature tier consists only of the + and - values of one feature. Surface ARs are assumed to obey FS, the NCC, and the OCP, but underlying ARs are subject only to the NCC and the OCP. Future extensions of this paper may further investigate the necessity of these assumptions when extending QFLFP to describe vowel harmony transformations with transparent vowels. 
 
-\noindent The string in (\ref{string}) is thus defined over a signature that consists of the predecessor function and the unary relation that labels elements with letters of the alphabet: {p, P$_{\sigma\in\Sigma}$}, $\Sigma$ = {a, b, c}. The predecessor function can also be used to define the order between elements on a tier in autosegmental representations. 
+# Vowel harmony patterns
 
-## Association Relation
+Vowel harmony is considered a process of assimilation that affects only the vowels in a word. Different theories suggest different mechanisms for vowel harmony assimilation, but this paper focuses on the logical description of transformations and seeks only to probe their computational complexity. In this paper computational complexity is investigated via the expressive power of the logic used to describe vowel harmony transformations. This section will discuss the logical description of two transformations which form the basis of many attested vowel harmony patterns: unbounded spreading and blocking.
 
-In addition to ordering between elements on a tier, @chandleejardineaisl introduced the binary association relation $\mathcal{A}(x, y)$ between elements on different tiers. For ARs of tone, $x$ is evaluated as an element on a tonal tier and $y$ as an element on the TBU tier. In order to use this relation for multi-tiered ARs of vowel harmony, a separate association relation must be defined between the vowel tier and each feature tier.
+In order to describe these vowel harmony patterns the QF FO logic defined in section 2 is supplemented with a least fixed point (lfp) operator [@libkin2012] to describe feature spreading. This operator applies to the set of things denoted by the binary variable, which allows a formula in the definition for an output association, for example, to iteratively apply associations following a single underlying association. The lfp operator introduces a binary set variable, which takes two arguments. Using the lfp operator with QF logic requires that a formula within the scope of the lfp has at most two free variables. This supplemented QF logic is called QFLFP.
+
+## Unbounded spreading
+
+A transformation in which no elements, orders, or associations change from the input to the output can be easily described using QF logic, but few vowel harmony patterns work this way. One pattern that is commonly discussed in autosegmental literature is unbounded spreading. Unbounded spreading occurs in languages with full harmony and in languages where some words undergo full harmony and others do not, like Akan. In vowel harmony terms, an unbounded rightward spreading pattern consists of an input with some number of vowels and only the first one is associated to a feature. That feature then spreads so that the output structure is fully specified. In other words, the output structure consists of the same number of vowels all associated to that same single feature. In Akan, the feature that spreads in fully harmonic words is either [+ATR] or [-ATR] and ATR spreading interacts with low vowels, but this interaction will not be discussed until section 4.2. The ARs in (\ref{unbound.spread}) illustrate unbounded rightward spread of +ATR among -low vowels.
 
 \begin{exe}
-\ex $\mathcal{A}_F(x, y)$
-\ex $\mathcal{A}_G(x, y)$
+\ex \label{unbound.spread} Unbounded ATR Spreading \\
+  \begin{tikzpicture}[baseline=(current bounding box.north)]
+  \matrix [matrix of nodes, row sep=2.5ex, column sep=2.25ex, nodes={text height=1em, text depth=0.5em}] 
+  {
+|(a)| +ATR$_1$ &             &             &           & |(c)| +ATR$_{1'}$\\
+|(1)| V$_2$    & |(2)| V$_3$ & |(3)| V$_4$ & $\mapsto$ & |(4)| V$_{2'}$  & |(5)| V$_{3'}$ & |(6)| V$_{4'}$\\
+|(b)| -low$_5$ &             &             &           & |(d)| -low$_{5'}$\\
+  };
+  \draw (a.south) -- (1.north);
+  \draw foreach \x in {1, 2, 3} {(\x.south) -- (b.north)};
+  \draw foreach \x in {4, 5, 6} {(c.south) -- (\x.north)};
+  \draw foreach \x in {4, 5, 6} {(\x.south) -- (d.north)};
+  \draw[black,<-] (1) -- (2);
+  \draw[black,<-] (2) -- (3);
+  \draw[black,<-] (4) -- (5);
+  \draw[black,<-] (5) -- (6);
+  \end{tikzpicture}
 \end{exe}
 
+In (\ref{unbound.spread}) each element is represented with a subscript number, the labels are represented either by the feature's name and value or by a V, for vowels. The elements in the output AR (denoted with $'$) are all also present in the input AR and so the label they receive can be easily defined using QF logic, as in (\ref{dunbound.def}). The first definition (P$'_{D}(x)$) specifies that each domain element in the input is present in the output. The other three definitions label each output element with its input label.
 
-# Unbounded Spreading
+\begin{exe}
+\ex\label{dunbound.def} $\langle$D; p, $\mathcal{A}$, P$_V$, P$_{+ATR}$, P$_{-ATR}$, P$_{+low}$, P$_{-low}\rangle$ 
+\end{exe}
+P$'_{D}(x) \defeq$ P$_{D}(x)$       \hspace{1.2in} P$'_{V}(x) \defeq$ P$_{V}(x)$ 
+
+P$'_{+ATR}(x) \defeq$ P$_{+ATR}(x)$ \hspace{0.75in} P$'_{-low}(x) \defeq$ P$_{-low}(x)$ 
+\vspace{0.25in}
+
+\noindent Similarly, the output associations between vowels and the [-low] feature are all present in the input as well, so I can write the definition for association between vowels and low features as in (\ref{lowunbound.def}). 
+
+\begin{exe}
+\ex\label{lowunbound.def}
+$\mathcal{A}_{low}'(x, y) \defeq \mathcal{A}_{low}(x, y)$
+\end{exe}
+
+However, the current QF version of FO logic does not provide a way to define the spreading of a [+ATR] feature to an unbounded number of vowels, as in (\ref{unbound.spread}). @chandleejardineaisl argue that unbounded tone spread is not A-ISL because the output association is not QF definable. In order to define an unboundedly spreading association, a least-fixed point (lfp) operator must be introduced [@libkin2012]. The lfp operator introduces a recursive binary variable, which allows the evaluation of the association relation to apply iteratively over successive vowels. In this way, unbounded feature spreading can be defined as the iterative association of a feature from one underlying vowel onto all successive vowels. The unbounded spreading of +ATR from left to right in (\ref{unbound.spread}) can thus be defined using quantifier-free least fixed point logic (QFLFP), as in (\ref{unboundqflfp.def}).
+
+\begin{exe}
+\ex\label{unboundqflfp.def}
+$\mathcal{A}_{ATR}'(x, y) \defeq [lfp \mathcal{A}_{ATR}(x, y)\vee R(x', p(y'))](x, y)$
+\end{exe}
+
+\noindent QFLFP requires a maximum of two free variables so the lfp operation requires reference to only two elements: an element on the relevant feature tier and an element on the vowel tier. As mentioned above, the $x$ is evaluated as a featural element and $y$ as a vocalic element; so according to the formula in (\ref{unboundqflfp.def}) an output association will be drawn between the [+ATR] feature and a vowel if that vowel is underlyingly associated to the [+ATR] feature or if the preceding vowel has been associated to that feature.
 
 ## Blocking
+
+In Akan, a [+low] vowel blocks the spread of ATR. In autosegmental terms, this means that an underlying [+ATR] feature, for example, spreads only to [-low] vowels and does not associate to a [+low] vowel. The multi-tiered ARs used throughout this paper do not provide a straightforward way to illustrate such an interaction between feature tiers unless the [+low] vowel is also associated to [-ATR] in the underlying form. The lfp operator allows a feature to spread its underlying association from one vowel to multiple vowels, but if an underlyingly [+low, -ATR] vowel blocks the spread of [+ATR] the transformation will look like (\ref{block}).
+
+\begin{exe}
+  \ex \label{block} Blocking\\
+  \begin{tikzpicture}[baseline=(current bounding box.north)]
+  \matrix [matrix of nodes, row sep=2.5ex, column sep=2.25ex, nodes={text height=1em, text depth=0.5em}] 
+  {
+|(a1)| +ATR$_1$ &         & |(b1)| -ATR$_2$ &         &           & |(c1)| +ATR$_{1'}$ &         & |(d1)| -ATR$_{2'}$\\
+|(1)| V$_3$  & |(2)| V$_4$ & |(3)| V$_5$      & |(4)| V$_6$ & $\mapsto$ & |(5)| V$_{3'}$     & |(6)| V$_{4'}$ & |(7)| V$_{5'}$ & |(8)| V$_{6'}$\\
+|(a2)| -low$_7$ &         & |(b2)| +low$_8$ &         &           & |(c2)| -low$_{7'}$ &         & |(d2)| +low$_{8'}$\\
+  };
+  \draw (a1.south) -- (1.north);
+  \draw foreach \x in {1, 2} {(\x.south) -- (a2.north)};
+  \draw (b1.south) -- (3.north);
+  \draw foreach \x in {3, 4} {(\x.south) -- (b2.north)};
+  \draw foreach \x in {5, 6} {(c1.south) -- (\x.north)};
+  \draw foreach \x in {5, 6} {(\x.south) -- (c2.north)};
+  \draw foreach \x in {7, 8} {(d1.south) -- (\x.north)};
+  \draw foreach \x in {7, 8} {(\x.south) -- (d2.north)};
+  \draw[black,<-] (a1) -- (b1);
+  \draw[black,<-] (c1) -- (d1);
+  \draw[black,<-] (1) -- (2);
+  \draw[black,<-] (2) -- (3);
+  \draw[black,<-] (3) -- (4);
+  \draw[black,<-] (5) -- (6);
+  \draw[black,<-] (6) -- (7);
+  \draw[black,<-] (7) -- (8);
+  \draw[black,<-] (a2) -- (b2);
+  \draw[black,<-] (c2) -- (d2);
+  \end{tikzpicture}
+\end{exe}
+
+As before, each element in the domain is labeled by defining the unary output predicates and the same number of elements are present in the input as are in the output. However, in order to describe when spreading is blocked the formula must refer either to the second featural element on the ATR tier labeled with [-ATR] and associated to a vowel in the input (2) or to vowels that are not associated in the input AR (4 and 6). A QFLFP definition of the transformation in (\ref{block}) is attempted in (\ref{qflfp.block}).
+
+\begin{exe}
+\ex\label{qflfp.block} $\langle$D; p, s, $\mathcal{A}$, P$_V$, P$_{+ATR}$, P$_{-ATR}$, P$_{+low}$, P$_{-low}\rangle$ 
+\end{exe}
+P$'_{D}(x) \defeq$ P$_{D}(x)$ \hspace{1.07in} P$'_{V}(x) \defeq$ P$_{V}(x)$
+
+P$'_{+ATR}(x) \defeq$ P$_{+ATR}(x)$ \hspace{0.65in} P$'_{-ATR}(x) \defeq$ P$_{+ATR}(x)$ 
+
+P$'_{+low}(x) \defeq$ P$_{+low}(x)$ \hspace{0.75in} P$'_{-low}(x) \defeq$ P$_{+low}(x)$ 
+
+$\mathcal{A}_{ATR}'(x, y) \defeq [lfp \mathcal{A}_{ATR}(x, y)\vee R(x', p(y'))\wedge ...]$ 
+
+$\mathcal{A}_{low}'(x, y) \defeq [lfp \mathcal{A}_{low}(x, y)\vee R(x', p(y'))\wedge ...]$
+\vspace{0.25in}
+
+\noindent In order to refer to a second element on the ATR feature tier, the formula must introduce a third free variable, but the binary set variable introduced by the lfp operator only allows for two. In addition, the binary association relation provides a means by which to refer to elements on different tiers that are associated to one another, but there is not way to refer to unassociated elements. The alternative discussed in the next section involves drawing an analogy between the association and ordering relations and once again changing the model signature over which multi-tiered ARs are defined in QFLFP.
+
+In this section I have shown that an unbounded spreading transformation over multi-tiered ARs can be described using QFLFP and a binary association relation, but not a blocking transformation. Unbounded spreading QFLFP definable because the lfp operator introduces a binary set variable, which allows exactly two variables to be free within the scope of the lfp predicate. The binary set variable takes two terms, which allows the output association to be recursively defined. In other words, the QFLFP definition of spreading is an iterative process of association from successive vowels to a single feature. However, a blocking transformation is not QFLFP definable using the binary association relation because the lfp predicate can have only two free variables ($x$ and $y$) and there is no way to refer to a second input feature without introducing a third variable. In addition, there is no way to refer to unassociated vowels so the lfp predicate cannot specify onto which vowels the feature spreads.
 
 # Association Function
 
+Unlike with tone, vowel harmony does not allow a vowel to be associated to more than one element on a feature tier. In other words, vowel harmony patterns do not include ARs in which a single vowel is associated to multiple elements on a feature tier; multiple association can only be unidirectional. As a result, the binary autosegmental association relation introduced by @chandleejardineaisl could be reformulated as a function ($\alpha$), which associates elements on the vowel tier to an element on a feature tier. The analogy could be drawn here between association and ordering because the binary ordering relations were also changed to functions when moving from FO to QFFO logic. Again, a separate association function must be defined for each feature tier. Since featural associations are all the same type of function ($\alpha_F(x)\approx y$) they will work in the same way. In order to evaluate $\alpha_F(x)\approx y$, the variable $x$ is evaluated as an element on the vowel tier and $y$ as an element on a feature tier. The association function will be represented with arrows from a vowel to a feature, as in (\ref{block.func}).
+
+## Unbounded Spreading
+
+The Akan patterns discussed in the previous section will now be reanalyzed using the new association function. First, the same unbounded spreading pattern as in (\ref{unbound.spread}) is reproduced here in (\ref{block.func}) using the association functions, $\alpha_{ATR}$ and $\alpha_{low}$. 
+
+\begin{exe}
+\ex \label{block.func} Association as a unidirectional function \\
+  \begin{tikzpicture}[baseline=(current bounding box.north)]
+  \matrix [matrix of nodes, row sep=2.5ex, column sep=2.25ex, nodes={text height=1em, text depth=0.5em}] 
+  {
+|(a)| +ATR$_1$ &             &             &           & |(c)| +ATR$_{1^1}$\\
+|(1)| V$_2$    & |(2)| V$_3$ & |(3)| V$_4$ & $\mapsto$ & |(4)| V$_{2^1}$ & |(5)| V$_{3^1}$ & |(6)| V$_{4^1}$ \\
+|(b)| -low$_5$ &             &             &           & |(d)| -low$_{5^1}$\\
+  };
+  \draw[black,<-] (a.south) -- (1.north);
+  \draw[black,->] (1.south) -- (b.north);
+  \draw[black,->] (2.south) -- (b.north);
+  \draw[black,->] (3.south) -- (b.north);
+  \draw[black,<-] (c.south) -- (4.north);
+  \draw[black,<-] (c.south) -- (5.north);
+  \draw[black,<-] (c.south) -- (6.north);
+  \draw[black,->] (4.south) -- (d.north);
+  \draw[black,->] (5.south) -- (d.north);
+  \draw[black,->] (6.south) -- (d.north);
+  \draw[black,<-] (1) -- (2);
+  \draw[black,<-] (2) -- (3);
+  \draw[black,<-] (4) -- (5);
+  \draw[black,<-] (5) -- (6);
+  \end{tikzpicture}
+\end{exe}
+
+\noindent Again, each element in the output also appears in the input so the unary predicates can be easily defined with QF, as in (\ref{fblock.def}). The output functions in (\ref{blockfunc.def}) are defined in terms of the input associations by using the lfp operator and binary variable introduced in the previous section, which allows the formula to have exactly two free variables.
+
+\begin{exe}
+\ex\label{fblock.def} $\langle$D; p, $\alpha$, P$_V$, P$_{+ATR}$, P$_{-low}\rangle$ 
+\end{exe}
+P$'_{D}(x) \defeq$ P$_{D}(x)$       \hspace{1.2in} P$'_{V}(x) \defeq$ P$_{V}(x)$ 
+
+P$'_{+ATR}(x) \defeq$ P$_{+ATR}(x)$ \hspace{0.75in} P$'_{-low}(x) \defeq$ P$_{-low}(x)$ 
+\vspace{0.25in}
+
+\begin{exe}
+\ex \label{blockfunc.def}
+  \begin{xlist}
+  \ex $\alpha_{ATR}'(x)\approx y \defeq$ [lfp $\alpha_{ATR}(x)\approx y\vee R(p(x'), y')]$$(x,y)$
+  \ex $\alpha_{low}'(x)\approx y \defeq \alpha_{low}(x)\approx y$
+  \end{xlist}
+\end{exe}
+
+\noindent Unbounded ATR spreading is thus described using the association function as in (\ref{blockfunc.def}a), which states that an element on the vowel tier is associated to an element on the ATR tier in the output copy if it is associated to that element on the ATR tier in the input or if its predecessor is associated to the same element on the ATR tier in the output. This description is true for 2', 3', and 4', which are all associated to 1'.
+
+The analogy with ordering does not end at making association a function, though. Section 2.1 explains that the ordering functions are necessarily total functions, which means they are by defined for each element in the domain. This is made possible by defining external predicates, which define the first element in a string as its own predecessor and the last element in a string as its own successor. In the same way, the association function is defined for all elements on the vowel tier such that underlyingly unassociated vowels are associated to themselves. These "unspecified" vowels are also defined with an external predicate for each association function, as in (\ref{unassoc.pred}).
+
+\begin{exe}
+\ex \label{unassoc.pred}
+  \begin{xlist}
+  \ex unspec$_{ATR}(x) \defeq \alpha_{ATR}(x)\approx x$ 
+  \ex unspec$_{low}(x) \defeq \alpha_{low}(x)\approx x$
+  \end{xlist}
+\end{exe}
+
+\noindent The final transformation for an unbounded rightward ATR spreading pattern thus looks like (\ref{unassoc.ars}). The unary predicates are defined logically as in (\ref{unassoc.def}) and association functions are defined in (\ref{unassoc.def2}).
+
+\begin{exe}
+\ex \label{unassoc.ars} Association as a total function \\
+  \begin{tikzpicture}[baseline=(current bounding box.north)]
+  \matrix [matrix of nodes, row sep=2.5ex, column sep=2.25ex, nodes={text height=1em, text depth=0.5em}] 
+  {
+|(a)| +ATR$_1$ &             &             &           & |(c)| +ATR$_{1'}$\\
+|(1)| V$_2$    & |(2)| V$_3$ & |(3)| V$_4$ & $\mapsto$ & |(4)| V$_{2'}$ & |(5)| V$_{3'}$ & |(6)| V$_{4'}$ \\
+|(b)| -low$_5$ &             &             &           & |(d)| -low$_{5'}$\\
+  };
+  \draw[black,<-] (a.south) -- (1.north);
+  \draw[black,->] (1.south) -- (b.north);
+  \draw[black,->] (2.south) -- (b.north);
+  \draw[black,->] (3.south) -- (b.north);
+  \draw[black,<-] (c.south) -- (4.north);
+  \draw[black,<-] (c.south) -- (5.north);
+  \draw[black,<-] (c.south) -- (6.north);
+  \draw[black,->] (4.south) -- (d.north);
+  \draw[black,->] (5.south) -- (d.north);
+  \draw[black,->] (6.south) -- (d.north);
+  \path (2) edge [loop above] (2);
+  \path (3) edge [loop above] (3);
+  \draw[black,<-] (1) -- (2);
+  \draw[black,<-] (2) -- (3);
+  \draw[black,<-] (4) -- (5);
+  \draw[black,<-] (5) -- (6);
+  \end{tikzpicture}
+
+\ex $\langle$D; p, $\alpha$, P$_V$, P$_{+ATR}$, P$_{-low}\rangle$\label{unassoc.def} 
+\end{exe}
+
+P$'_{D}(x) \defeq$ P$_{D}(x)$ \hspace{1.07in} P$'_{V}(x) \defeq$ P$_{V}(x)$
+
+P$'_{+ATR}(x) \defeq$ P$_{+ATR}(x)$ \hspace{0.65in} P$'_{-ATR}(x) \defeq$ P$_{-ATR}(x)$
+
+P$'_{+low}(x) \defeq$ P$_{+low}(x)$ \hspace{0.75in} P$'_{-low}(x) \defeq$ P$_{-low}(x)$
+
+\begin{exe}
+\ex \label{unassoc.def2}
+  \begin{xlist}
+  \ex $\alpha_{ATR}'(x)\approx y \defeq [lfp \alpha_{ATR}(x)\approx y\vee R(p(x'), y')](x,y)$ 
+  \ex $\alpha_{low}'(x)\approx y \defeq \alpha_{low}(x)\approx y](x,y)$
+  \end{xlist}
+\end{exe}
+
+\noindent The definition of ($\alpha_{ATR}'(x)\approx y$) effectively overwrites any input associations that are not included in the lfp formula in (\ref{unassoc.def2}a), but the unspec$_F(x)$ predicates will be useful in the next subsection.
+
 ## Blocking
 
-## Transparency
+I proposed the association function as an alternative to the binary association relation, which could not describe a feature spreading pattern with blocking, like Akan. In the previous section I explained that the formula which defines the output ATR associations must refer to either a second ATR feature or the underlyingly unspecified vowels. The association function and unspec predicates allow a QFLFP formula to refer directly to elements on the vowel tier which are both associated and unassociated to an ATR feature. In this way, QFLFP can be used to describe the blocking pattern of Akan if the blocking [+low] vowel is also underlyingly associated to [-ATR]. 
 
-### The No Crossing Constraint
+\begin{exe}
+  \ex \label{block.unspec} Blocking\\
+  \begin{tikzpicture}[baseline=(current bounding box.north)]
+  \matrix [matrix of nodes, row sep=2.5ex, column sep=2.25ex, nodes={text height=1em, text depth=0.5em}] 
+  {
+|(a1)| +ATR$_1$ &         & |(b1)| -ATR$_2$ &         &           & |(c1)| +ATR$_{1^1}$ &         & |(d1)| -ATR$_{2^1}$\\
+|(1)| V$_3$ & |(2)| V$_4$ & |(3)| V$_5$ & |(4)| V$_6$ & $\mapsto$ & |(5)| V$_{3^1}$ & |(6)| V$_{4^1}$ & |(7)| V$_{5^1}$ & |(8)| V$_{6^1}$\\
+|(a2)| -low$_7$ &         & |(b2)| +low$_8$ &         &           & |(c2)| -low$_{7^1}$ &         & |(d2)| +low$_{8^1}$\\
+  };
+  \draw (a1.south) -- (1.north);
+  \draw foreach \x in {1, 2} {(\x.south) -- (a2.north)};
+  \draw (b1.south) -- (3.north);
+  \draw foreach \x in {3, 4} {(\x.south) -- (b2.north)};
+  \draw foreach \x in {5, 6} {(c1.south) -- (\x.north)};
+  \draw foreach \x in {5, 6} {(\x.south) -- (c2.north)};
+  \draw foreach \x in {7, 8} {(d1.south) -- (\x.north)};
+  \draw foreach \x in {7, 8} {(\x.south) -- (d2.north)};
+  \path (2) edge [loop above] (2);
+  \path (4) edge [loop above] (4);
+  \draw[black,<-] (1) -- (2);
+  \draw[black,<-] (2) -- (3);
+  \draw[black,<-] (3) -- (4);
+  \draw[black,<-] (5) -- (6);
+  \draw[black,<-] (6) -- (7);
+  \draw[black,<-] (7) -- (8);
+  \end{tikzpicture}
+\end{exe}
+
+\noindent For this reason, the input AR in (\ref{block.unspec}) has two underlying ATR associations. In the input 3 associated to 7 and 1, and the [+ATR] feature spreads so that 4 is also associated to 1 in the output. However, 5 is associated to 2 and 8 and so it cannot also be associated to 1, thus blocking the spread of [+ATR].
+
+The definitions of the blocking transformation in (\ref{block.unspec}) look similar to the definitions of the unbounded spreading transformation in (\ref{unassoc.ars}), except for the output condition on ATR association. All of the input elements are copied into the output so the output conditions for the unary predicates are easily defined using QF, as in (\ref{blockunspec.def1}).
+
+\begin{exe}
+  \ex $\langle$D; p, $\alpha$, P$_V$, P$_{+ATR}$, P$_{-ATR}$, P$_{+low}$, P$_{-low}\rangle$\label{blockunspec.def1}
+  \begin{xlist}
+  \ex P$'_{D}(x) \defeq$ P$_{D}(x)$ \hspace{1.07in} P$'_{V}(x) \defeq$ P$_{V}(x)$
+  \ex P$'_{+ATR}(x) \defeq$ P$_{+ATR}(x)$ \hspace{0.65in} P$'_{-ATR}(x) \defeq$ P$_{-ATR}(x)$
+  \ex P$'_{+low}(x) \defeq$ P$_{+low}(x)$ \hspace{0.75in} P$'_{-low}(x) \defeq$ P$_{-low}(x)$
+  \end{xlist}
+  
+\ex \label{blockunspec.def2}
+  \begin{xlist}
+  \ex $\alpha_{ATR}'(x)\approx y \defeq [lfp(\alpha_{ATR}(x)\approx y\wedge \neg x\approx y) \vee (R(p(x'), y')\wedge unspec_{ATR}(x'))](x,y)$
+  \ex $\alpha_{low}'(x)\approx y \defeq \alpha_{low}(x)\approx y](x,y)$
+  \end{xlist}
+\end{exe}
+
+\noindent The formula in (\ref{blockunspec.def2}a) states that an element on the vowel tier is associated to an element on the ATR tier in the output if it is associated to that ATR feature in the input and is not itself, or if the vocalic element is unspecified and its predecessor is associated to that same element on the ATR tier in the output. Adding 'unspec$_{ATR}(x')$' to the second disjunct in the lfp predicate prevents the [+ATR] feature from spreading to the third vowel (5), which is already underlyingly associated to [-ATR]. Thus in principle, the [+low] vowel has blocked the spread of [+ATR], but only because it is also [-ATR]. In practice, writing separate definitions for the associations between the vowel tier and each feature tier prevents a process on one feature tier from referencing elements on a different feature tier.
+
+In this section I have shown that describing both unbounded spreading and blocking transformations over multi-tiered ARs is possible using an association function ($\alpha_F(x)\approx y$). The association function is similar to the predecessor and successor ordering functions, p($x$) and s($x$) respectively, because it redefines a binary relation as a function which takes a term and outputs a term. Autosegmental association can be defined as a function for ARs of vowel harmony because it is not possible for a vowel to be associated to both the + and - minus of a feature so multiple association is only possible in one direction. Thus $\alpha_F(x)\approx y$ operates unidirectionally so $x$ variables are evaluated as elements on the vowel tier and $y$ variables are evaluated as elements on a feature tier. I defined predicates that allow QFLFP formulas to make reference to unspecified vowels, which are elements on the vowel tier that are associated to themselves. The association function is not quite a total function because it is defined for every element on the vowel tier, but not for elements on feature tiers.
+
+# Conclusion
+
+This paper outlines a method for describing vowel harmony transformations of both unbounded spreading and blocking patterns over multi-tiered ARs using quantifier-free least fixed point logic (QFLFP). It reviews some previous work on both logical descriptions of phonological transformations and autosegmental theory then extends these to vowel harmony transformations over multi-tiered autosegmental representations (ARs). The QFLFP logical descriptions used throughout this paper reveal the necessity of using functions rather than binary relations in order to refer to terms, which pick out elements in the domain. First, the successor ordering relation is translated to a predecessor function then the use of functions is extended to ARs when the binary association relation is also translated into an association function. Unlike with tone, vowel harmony patterns allow autosegmental association to be defined as a function because multiple association is only possible in one direction; no vowel can be associated to both the + and - value of a feature.
+
+Using the association function makes a blocking pattern over multi-tiered ARs QFLFP definable where the binary association relation did not. In order to refer to a feature on a different tier---as descriptions of blocking often do---or a second feature on the same tier, a FO formula would have to introduce a third variable, which cannot be done without a quantifier. As a function, though, association refers to terms which allows for a definition of what have been called unspecified vowels as elements with a looping association; in other words elements on the vowel tier that are associated to themselves. Being able to refer to "unspecified" vowels effectively circumvents the problem of not using quantifiers and maintains the restriction of only having two free variables within the scope of an lfp predicate.
+
+@chandleejardine2019 claim that unbounded spreading is not AISL because it is not QF definable, but this paper shows that it is QFLFP definable. It is thus possible---and other recent work with QFLFP provides further evidence---that QFLFP describes a superset of the ISL class of functions established by @chandlee2014. These findings provide valuable insight into the computational complexity of vowel harmony and phonological transformations in general, which warrant further research. 
+
+Future investigations into the expressivity of QFLFP with respect to vowel harmony patterns will include developing a description of a transformation with transparent vowels. In particular, investigating the proposed underlying forms of vowel harmony transformations with transparent vowels could provide important insights into the utility of the representational assumptions held throughout this paper. More specifically, future work includes and investigation of whether or not transformations with transparent vowels require that the No Crossing Constraint (NCC) be violable.
 
 \newpage
 
