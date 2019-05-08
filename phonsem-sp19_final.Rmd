@@ -54,11 +54,21 @@ library("papaja")
 
 # Introduction
 
-Phonological transformations can be characterized as mathematical functions, which map an underlying representation to an attested surface form. Such transformations can be described using logical transductions and the expressivity of a logic determines the class of functions that it describes. For example, previous work has shown that Input Strictly Local (ISL) string functions are describable with quantifier-free (QF) first order (FO) logical transductions [@chandlee2014; @chandleeheinz2018]. In addition, @chandleejardine2019 showed that some tone processes are QF definable over two-tiered autosegmental representations (ARs), which make up the Autosegmental Input Strictly Local (AISL) function class. However, @chandleejardine2019 claimed that unbounded spreading is not QF definable and thus not AISL. In this paper I will demonstrate a method for describing vowel harmony transformations of both unbounded spreading and blocking patterns over multi-tiered ARs using quantifier-free least fixed point (QFLFP) logical transductions. This paper will illustrate that in order to describe both unbounded spreading and blocking with QFLFP, the autosegmental association relation must be translated into a function.
+Phonological transformations can be characterized as mathematical functions, which map an underlying representation to an attested surface form. Such transformations can be described using logical transductions and the expressivity of a logic determines the class of functions that it describes. For example, previous work has shown that Input Strictly Local (ISL) string functions are describable with quantifier-free (QF) first order (FO) logical transductions [@chandlee2014; @chandleeheinz2018]. In addition, @chandleejardineaisl showed that some tone processes are QF definable over two-tiered autosegmental representations (ARs), which make up the Autosegmental Input Strictly Local (AISL) function class. However, @chandleejardineaisl claimed that unbounded spreading is not QF definable and thus not AISL. This paper will demonstrate a method for describing vowel harmony transformations with both unbounded spreading and blocking patterns over multi-tiered ARs using quantifier-free least fixed point (QFLFP) logical transductions. This paper will also illustrate that a blocking pattern is not describable with QFLFP unless the autosegmental association relation is translated into a function.
+
+First, section 2 defines QF string transductions and the two relations needed to define autosegmental representations (ARs): ordering and association. QF transductions are defined using atomic formula that take terms as a function that maps an input structure to an output copy of the same type of structure. The structures analyzed in this paper are multi-tiered autosegmental representations, which utilize ordering functions between elements on a tier and association between elements on different tiers.
+
+Section 3 outlines the representational assumptions held throughout this paper. This paper analyzes two vowel harmony patterns over multi-tiered ARs, which use a bottlebrush feature representation and binary vowel features. These ARs abstract away from consonants so they consist of a vowel tier with elements directly associated to features on separate tiers. Each feature tier consists of the + and - values of one feature. Autosegmental theory provides restrictions to allow only output ARs that obey Full Specification (FS), the No Crossing Constraint (NCC), and the Obligatory Contour Principle (OCP). Input ARs, on the other hand, are not subject to FS.
+
+Section 4 introduces the vowel harmony patterns under discussion: unbounded spreading and blocking. In this section an unbounded spreading pattern from Akan is defined using QFLFP with a predecessor function and binary association relation. Spreading is characterized as an iterative process of associating multiple successive vowels to a single feature via the recursive lfp predicate. The Akan-like blocking pattern, however, is not QFLFP definable with a binary association relation.
+
+Section 5 translates the binary association relation into a function. The association function allows association to be defined using terms, which adds the possibility for writing a QF predicate that defines "unspecified" vowels as elements on the vowel tier, which are associated to themselves.  The recursive QFLFP definition of association to a particular feature can then can refer to these input reflexive associations and overwrites them with association to the specified feature. In this way, the Akan-like blocking pattern is characterized as iterative spreading of a feature only to vowels that are "unspecified", or associated to themselves, in the input.
+
+Lastly, section 6 concludes and proposes a future extension of this work to investigate the QFLFP definition of a vowel harmony pattern with transparent vowels.
 
 # QF Logical Transductions
 
-QF logic is precisely first-order (FO) logic without quanitfiers ($\exists$ or $\forall$). In this logic, a term picks out a single element in a model's domain, so a variable is considered a term and a function applied to a term is also a term. 
+QF logic is precisely first-order (FO) logic without quanitfiers ($\exists$ or $\forall$). In QFFO logic, a term picks out a single element in a model's domain; (\ref{terms}) lists the mathematical notation for what is considered a term. 
 
 \begin{exe}
 \ex Terms $(t)$: \label{terms}
@@ -68,7 +78,7 @@ QF logic is precisely first-order (FO) logic without quanitfiers ($\exists$ or $
   \end{xlist}
 \end{exe}
 
-QF string transductions define an output string in terms of the elements and relations of the input string using atomic formulas that take terms.
+\noindent QF string transductions define an output string in terms of the elements and relations of the input string using atomic formulas that take terms.
 
 \begin{exe}
 \ex QF atomic formulas\label{atom}
@@ -88,6 +98,8 @@ QF string transductions define an output string in terms of the elements and rel
 $\begin{array}{ccc} d^c_1 <' d^e_2 \defeq & x<y & if c\geq e \\
                                           & x\leq y & if c<e \end{array}$
 \vspace{0.2in}
+
+\noindent This order preservation allows the first copyset to be a copy of both the input elements and the ordering between them so that input ARs are mapped to an output AR.
 
 The following sections will introduce the functions and relations needed to describe a vowel harmony transformation over multi-tiered autosegmental representations: order between elements on a tier and association between elements on different tiers.
 
@@ -437,6 +449,7 @@ The Akan patterns discussed in the previous section will now be reanalyzed using
 
 \noindent Again, each element in the output also appears in the input so the unary predicates can be easily defined with QF, as in (\ref{fblock.def}). The output functions in (\ref{blockfunc.def}) are defined in terms of the input associations by using the lfp operator and binary variable introduced in the previous section, which allows the formula to have exactly two free variables.
 
+\newpage
 \begin{exe}
 \ex\label{fblock.def} $\langle$D; p, $\alpha$, P$_V$, P$_{+ATR}$, P$_{-low}\rangle$ 
 \end{exe}
@@ -503,6 +516,7 @@ P$'_{+ATR}(x) \defeq$ P$_{+ATR}(x)$ \hspace{0.65in} P$'_{-ATR}(x) \defeq$ P$_{-A
 
 P$'_{+low}(x) \defeq$ P$_{+low}(x)$ \hspace{0.75in} P$'_{-low}(x) \defeq$ P$_{-low}(x)$
 
+\newpage
 \begin{exe}
 \ex \label{unassoc.def2}
   \begin{xlist}
@@ -578,7 +592,7 @@ Using the association function makes a blocking pattern over multi-tiered ARs QF
 
 Future investigations into the expressivity of QFLFP with respect to vowel harmony patterns will include developing a description of a transformation with transparent vowels. In particular, investigating the proposed underlying forms of vowel harmony transformations with transparent vowels could provide important insights into the utility of the representational assumptions held throughout this paper. More specifically, future work includes and investigation of whether or not transformations with transparent vowels require that the No Crossing Constraint (NCC) be violable.
 
-\newpage
+\vspace{2in}
 
 # References
 ```{r create_r-references}
